@@ -207,3 +207,49 @@ export const CONFIGURACOES_PADRAO: Configuracoes = {
   alerta_preco_variacao_percentual: 10,
   alerta_compra_acima_media_percentual: 50,
 }
+
+// ── Leitura IA Universal ──────────────────────────────────────────
+
+export type TipoDocumento =
+  | 'nota_fiscal'
+  | 'folheto'
+  | 'print_whatsapp'
+  | 'print_instagram'
+  | 'foto_produto'
+  | 'audio'
+  | 'outro'
+
+export interface ItemExtraido {
+  nome_original: string        // exatamente como aparece na fonte
+  nome_normalizado: string     // nome padronizado
+  preco_unitario: number | null
+  unidade: string              // "kg", "un", "L", "cx", etc.
+  quantidade: number | null
+  fornecedor: string | null
+  confianca: ConfiancaCotacao
+  observacao: string | null
+  produto_id?: string          // preenchido após matching com produtos do sistema
+}
+
+export interface LeituraIAResultado {
+  itens: ItemExtraido[]
+  tipo_documento: TipoDocumento
+  data_documento: string | null   // data extraída do documento, se visível
+  fornecedor_principal: string | null
+  observacao_geral: string | null
+}
+
+// ── Varredura Web ──────────────────────────────────────────────────
+
+export interface ResultadoVarredura {
+  produto_id: string
+  produto_nome: string
+  cotacoes: {
+    fornecedor_nome: string
+    preco: number
+    unidade: string
+    confianca: ConfiancaCotacao
+    url_fonte?: string
+    observacao?: string
+  }[]
+}
