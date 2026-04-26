@@ -1,0 +1,86 @@
+import { Produto } from '@/types'
+
+// Each product has descricao, sinonimos, uso_tipico so Gemini AI understands context
+export const PRODUTOS_SEED: Omit<Produto, 'id' | 'estoque_atual' | 'estoque_minimo' | 'custo_medio'>[] = [
+  // Bovinos
+  { nome: 'Picanha Nacional', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte nobre bovino traseiro com capa de gordura', sinonimos: ['picanha', 'picanha bovina'], uso_tipico: 'buffet domingo premium, churrasco', ativo: true },
+  { nome: 'Alcatra com Maminha', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte bovino traseiro, macio e versátil', sinonimos: ['alcatra'], uso_tipico: 'buffet diário, assado', ativo: true },
+  { nome: 'Contrafilé', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte bovino com marmoreado, ideal para grelha', sinonimos: ['contrafile'], uso_tipico: 'buffet diário, grelhado', ativo: true },
+  { nome: 'Cupim', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corcova bovina, lento e macio no forno', sinonimos: ['cupim bovino'], uso_tipico: 'buffet domingo, assado lento', ativo: true },
+  { nome: 'Costela Janela', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Costela bovina para churrasco e cozido', sinonimos: ['costela', 'costela bovina'], uso_tipico: 'buffet fim de semana, churrasco', ativo: true },
+  { nome: 'Fraldinha', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte bovino lateral, suculento e saboroso', sinonimos: ['fraldinha bovina'], uso_tipico: 'buffet diário, grelhado', ativo: true },
+  { nome: 'Maminha', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte bovino macio, parte da alcatra', sinonimos: ['maminha bovina'], uso_tipico: 'buffet diário', ativo: true },
+  { nome: 'Acém', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Carne bovina dianteira, boa para ensopados', sinonimos: ['acem'], uso_tipico: 'buffet diário, guisado', ativo: true },
+  { nome: 'Patinho', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte bovino magro, versátil', sinonimos: ['patinho bovino'], uso_tipico: 'buffet diário, assado, bife', ativo: true },
+  { nome: 'Filé Mignon', categoria: '🥩 Bovinos', unidade_padrao: 'kg', descricao: 'Corte mais nobre e macio do boi', sinonimos: ['file mignon', 'filé'], uso_tipico: 'buffet domingo premium', ativo: true },
+  // Suínos
+  { nome: 'Pernil Inteiro', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Perna suína inteira, assado lento', sinonimos: ['pernil suino', 'pernil de porco'], uso_tipico: 'buffet fim de semana, assado', ativo: true },
+  { nome: 'Lombo', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Corte suíno magro e macio', sinonimos: ['lombo suino', 'lombo de porco'], uso_tipico: 'buffet diário', ativo: true },
+  { nome: 'Costelinha Baby Back', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Costelinha suína menor e mais macia', sinonimos: ['costelinha', 'baby back'], uso_tipico: 'buffet fim de semana, churrasco', ativo: true },
+  { nome: 'Copa Lombo', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Corte suíno do pescoço, muito saboroso', sinonimos: ['copa', 'copa de lombo'], uso_tipico: 'buffet diário', ativo: true },
+  { nome: 'Linguiça Toscana', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Linguiça suína temperada estilo toscano', sinonimos: ['linguiça', 'toscana'], uso_tipico: 'buffet diário, churrasco', ativo: true },
+  { nome: 'Linguiça de Pernil', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Linguiça feita de pernil suíno', sinonimos: ['linguiça pernil'], uso_tipico: 'buffet diário', ativo: true },
+  { nome: 'Bacon Manta', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Barriga suína defumada em manta', sinonimos: ['bacon', 'barriga defumada'], uso_tipico: 'tempero, acompanhamento', ativo: true },
+  { nome: 'Toucinho para Torresmo', categoria: '🐷 Suínos', unidade_padrao: 'kg', descricao: 'Gordura suína para fritar e fazer torresmo', sinonimos: ['toucinho', 'torresmo'], uso_tipico: 'buffet diário, aperitivo', ativo: true },
+  // Aves
+  { nome: 'Peito de Frango Filé', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Peito de frango sem osso e sem pele', sinonimos: ['file de frango', 'peito frango'], uso_tipico: 'buffet diário, grelhado, assado', ativo: true },
+  { nome: 'Sobrecoxa c/ osso', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Sobrecoxa de frango com osso, suculenta', sinonimos: ['sobrecoxa', 'coxa sobrecoxa'], uso_tipico: 'buffet diário, assado', ativo: true },
+  { nome: 'Coxa', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Coxa de frango com osso', sinonimos: ['coxa de frango'], uso_tipico: 'buffet diário', ativo: true },
+  { nome: 'Coxinha da Asa', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Asa de frango, crocante e saborosa', sinonimos: ['asa de frango', 'drummete'], uso_tipico: 'buffet diário, aperitivo', ativo: true },
+  { nome: 'Coração de Frango', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Miúdo de frango para churrasco', sinonimos: ['coracao de frango'], uso_tipico: 'buffet fim de semana, churrasco', ativo: true },
+  { nome: 'Moela', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Moela de frango para ensopado', sinonimos: ['moela de frango'], uso_tipico: 'buffet diário', ativo: true },
+  { nome: 'Frango a Passarinho', categoria: '🍗 Aves', unidade_padrao: 'kg', descricao: 'Frango cortado miúdo para fritar', sinonimos: ['passarinho', 'frango frito'], uso_tipico: 'buffet diário, aperitivo', ativo: true },
+  // Legumes
+  { nome: 'Batata Inglesa', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Batata comum para cozinhar e fritar', sinonimos: ['batata', 'potato'], uso_tipico: 'acompanhamento buffet diário', ativo: true },
+  { nome: 'Cenoura', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Cenoura para cozinhar e refogados', sinonimos: ['cenoura crua'], uso_tipico: 'acompanhamento, salada', ativo: true },
+  { nome: 'Chuchu', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Legume verde suave para refogado', sinonimos: [], uso_tipico: 'acompanhamento buffet diário', ativo: true },
+  { nome: 'Abóbora Cabotiá', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Abóbora japonesa, doce e cremosa', sinonimos: ['cabotia', 'abobora japonesa'], uso_tipico: 'acompanhamento, purê', ativo: true },
+  { nome: 'Mandioca', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Mandioca para cozinhar ou fritar', sinonimos: ['aipim', 'macaxeira', 'mandioca cozida'], uso_tipico: 'acompanhamento buffet diário', ativo: true },
+  { nome: 'Milho Verde', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Milho fresco em espiga ou debulhado', sinonimos: ['milho'], uso_tipico: 'acompanhamento, mingau', ativo: true },
+  { nome: 'Beterraba', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Beterraba para salada e cozido', sinonimos: [], uso_tipico: 'salada buffet', ativo: true },
+  { nome: 'Vagem', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Vagem para refogado e salada', sinonimos: ['feijao vagem'], uso_tipico: 'acompanhamento buffet', ativo: true },
+  { nome: 'Quiabo', categoria: '🥦 Legumes', unidade_padrao: 'kg', descricao: 'Quiabo para refogado e frango com quiabo', sinonimos: [], uso_tipico: 'buffet diário, frango com quiabo', ativo: true },
+  // Folhas
+  { nome: 'Alface Crespa', categoria: '🥬 Folhas', unidade_padrao: 'un', descricao: 'Alface crespa para salada', sinonimos: ['alface'], uso_tipico: 'salada buffet diário', ativo: true },
+  { nome: 'Couve Manteiga', categoria: '🥬 Folhas', unidade_padrao: 'kg', descricao: 'Couve para refogar e salada', sinonimos: ['couve'], uso_tipico: 'acompanhamento feijão, buffet', ativo: true },
+  { nome: 'Rúcula', categoria: '🥬 Folhas', unidade_padrao: 'kg', descricao: 'Rúcula para salada, levemente amarga', sinonimos: ['rucula'], uso_tipico: 'salada buffet', ativo: true },
+  { nome: 'Repolho Branco', categoria: '🥬 Folhas', unidade_padrao: 'kg', descricao: 'Repolho para salada e cozido', sinonimos: ['repolho'], uso_tipico: 'salada, cozido buffet', ativo: true },
+  { nome: 'Brócolis', categoria: '🥬 Folhas', unidade_padrao: 'kg', descricao: 'Brócolis para refogar e salada', sinonimos: ['brocolis', 'brócolos'], uso_tipico: 'acompanhamento buffet', ativo: true },
+  { nome: 'Couve-Flor', categoria: '🥬 Folhas', unidade_padrao: 'kg', descricao: 'Couve-flor para cozinhar e gratinar', sinonimos: ['couveflor'], uso_tipico: 'acompanhamento buffet', ativo: true },
+  { nome: 'Agrião', categoria: '🥬 Folhas', unidade_padrao: 'kg', descricao: 'Agrião para salada, levemente picante', sinonimos: ['agrao'], uso_tipico: 'salada buffet', ativo: true },
+  // Temperos
+  { nome: 'Alho Granel', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Alho in natura para tempero', sinonimos: ['alho', 'alho descascado'], uso_tipico: 'tempero base todas as preparações', ativo: true },
+  { nome: 'Cebola Branca', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Cebola para refogado e tempero', sinonimos: ['cebola'], uso_tipico: 'tempero base todas as preparações', ativo: true },
+  { nome: 'Tomate Salada', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Tomate fresco para salada e molho', sinonimos: ['tomate'], uso_tipico: 'salada, molho buffet', ativo: true },
+  { nome: 'Pimentão Verde', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Pimentão verde para tempero e salada', sinonimos: ['pimentao'], uso_tipico: 'tempero, salada', ativo: true },
+  { nome: 'Cheiro Verde', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Salsa e cebolinha para finalizar pratos', sinonimos: ['salsa', 'cebolinha', 'cheiro-verde'], uso_tipico: 'finalização todas as preparações', ativo: true },
+  { nome: 'Coentro', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Erva aromática usada em peixes e frutos do mar', sinonimos: [], uso_tipico: 'tempero peixe, camarão, buffet domingo', ativo: true },
+  { nome: 'Pimenta Dedo de Moça', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Pimenta fresca de ardência média', sinonimos: ['pimenta', 'dedo de moca'], uso_tipico: 'tempero, molho apimentado', ativo: true },
+  { nome: 'Gengibre', categoria: '🍅 Temperos', unidade_padrao: 'kg', descricao: 'Raiz aromática para tempero e marinadas', sinonimos: [], uso_tipico: 'marinada, tempero carnes', ativo: true },
+  // Mercearia
+  { nome: 'Arroz Tipo 1', categoria: '🛒 Mercearia', unidade_padrao: 'kg', descricao: 'Arroz branco polido tipo 1', sinonimos: ['arroz', 'arroz branco'], uso_tipico: 'acompanhamento buffet diário', ativo: true },
+  { nome: 'Feijão Carioca', categoria: '🛒 Mercearia', unidade_padrao: 'kg', descricao: 'Feijão carioca para feijoada e feijão do dia', sinonimos: ['feijao', 'feijão'], uso_tipico: 'buffet diário, feijão tropeiro', ativo: true },
+  { nome: 'Feijão Preto', categoria: '🛒 Mercearia', unidade_padrao: 'kg', descricao: 'Feijão preto para feijoada', sinonimos: ['feijao preto', 'feijoada'], uso_tipico: 'buffet domingo, feijoada', ativo: true },
+  { nome: 'Óleo de Soja', categoria: '🛒 Mercearia', unidade_padrao: 'L', descricao: 'Óleo vegetal para fritura e refogado', sinonimos: ['oleo', 'óleo vegetal'], uso_tipico: 'todas as preparações', ativo: true },
+  { nome: 'Farinha de Mandioca', categoria: '🛒 Mercearia', unidade_padrao: 'kg', descricao: 'Farinha de mandioca torrada para acompanhamento', sinonimos: ['farinha', 'farofa'], uso_tipico: 'acompanhamento buffet diário', ativo: true },
+  { nome: 'Fubá Mimoso', categoria: '🛒 Mercearia', unidade_padrao: 'kg', descricao: 'Fubá fino para polenta e angu', sinonimos: ['fuba', 'angu', 'polenta'], uso_tipico: 'buffet diário, angu', ativo: true },
+  { nome: 'Extrato de Tomate', categoria: '🛒 Mercearia', unidade_padrao: 'kg', descricao: 'Extrato de tomate concentrado para molhos', sinonimos: ['extrato tomate', 'molho tomate'], uso_tipico: 'base de molhos, carnes', ativo: true },
+  // Bebidas
+  { nome: 'Coca-Cola 2L', categoria: '🍺 Bebidas', unidade_padrao: 'un', descricao: 'Refrigerante Coca-Cola garrafa 2 litros', sinonimos: ['coca', 'coca cola', 'refrigerante'], uso_tipico: 'venda avulsa, almoço', ativo: true },
+  { nome: 'Guaraná Antarctica 2L', categoria: '🍺 Bebidas', unidade_padrao: 'un', descricao: 'Refrigerante Guaraná Antarctica 2 litros', sinonimos: ['guarana', 'guaraná'], uso_tipico: 'venda avulsa', ativo: true },
+  { nome: 'Skol Lata 350ml', categoria: '🍺 Bebidas', unidade_padrao: 'un', descricao: 'Cerveja Skol em lata 350ml', sinonimos: ['skol', 'cerveja lata'], uso_tipico: 'venda avulsa', ativo: true },
+  { nome: 'Brahma Lata 350ml', categoria: '🍺 Bebidas', unidade_padrao: 'un', descricao: 'Cerveja Brahma em lata 350ml', sinonimos: ['brahma', 'cerveja'], uso_tipico: 'venda avulsa', ativo: true },
+  { nome: 'Heineken Long Neck', categoria: '🍺 Bebidas', unidade_padrao: 'un', descricao: 'Cerveja Heineken long neck 330ml', sinonimos: ['heineken'], uso_tipico: 'venda avulsa, domingo premium', ativo: true },
+  { nome: 'Água Mineral 500ml', categoria: '🍺 Bebidas', unidade_padrao: 'un', descricao: 'Água mineral sem gás garrafa 500ml', sinonimos: ['agua', 'água'], uso_tipico: 'venda avulsa, refeição', ativo: true },
+]
+
+export const CATEGORIAS_PADRAO = [
+  '🥩 Bovinos',
+  '🐷 Suínos',
+  '🍗 Aves',
+  '🥦 Legumes',
+  '🥬 Folhas',
+  '🍅 Temperos',
+  '🛒 Mercearia',
+  '🍺 Bebidas',
+]
