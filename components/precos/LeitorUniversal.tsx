@@ -10,6 +10,10 @@ interface LeitorUniversalProps {
   contexto?: string
   accept?: string
   disabled?: boolean
+  labels?: {
+    title?: string
+    subtitle?: string
+  }
 }
 
 const ACCEPT_DEFAULT = 'image/jpeg,image/png,image/webp,image/heic,application/pdf,audio/mpeg,audio/wav,audio/ogg,audio/mp4,audio/aac'
@@ -27,7 +31,7 @@ const TIPO_LABELS: Record<string, string> = {
   'audio/aac': '🎵 Áudio',
 }
 
-export function LeitorUniversal({ onResultado, contexto, accept = ACCEPT_DEFAULT, disabled }: LeitorUniversalProps) {
+export function LeitorUniversal({ onResultado, contexto, accept = ACCEPT_DEFAULT, disabled, labels }: LeitorUniversalProps) {
   const [dragging, setDragging] = useState(false)
   const [loading, setLoading] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
@@ -109,10 +113,10 @@ export function LeitorUniversal({ onResultado, contexto, accept = ACCEPT_DEFAULT
           <>
             <div className="text-3xl">📎</div>
             <p className="text-text-primary text-sm font-medium text-center">
-              Jogue qualquer coisa aqui
+              {labels?.title ?? 'Jogue qualquer coisa aqui'}
             </p>
             <p className="text-text-muted text-xs text-center">
-              Foto, print de WhatsApp, print de Instagram, folheto, PDF, áudio
+              {labels?.subtitle ?? 'Foto, print de WhatsApp, print de Instagram, folheto, PDF, áudio'}
             </p>
             <Button variant="ghost" className="text-xs mt-1" disabled={disabled}>
               Escolher arquivo

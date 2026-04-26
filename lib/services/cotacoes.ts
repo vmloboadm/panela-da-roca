@@ -1,6 +1,6 @@
 import { getCollection, addDocument } from '@/lib/firestore'
 import { Cotacao } from '@/types'
-import { where, orderBy } from 'firebase/firestore'
+import { where, orderBy, limit } from 'firebase/firestore'
 
 export async function getCotacoesPorProduto(produto_id: string): Promise<Cotacao[]> {
   return getCollection<Cotacao>('cotacoes', [
@@ -10,7 +10,7 @@ export async function getCotacoesPorProduto(produto_id: string): Promise<Cotacao
 }
 
 export async function getCotacoesRecentes(limite = 50): Promise<Cotacao[]> {
-  return getCollection<Cotacao>('cotacoes', [orderBy('data', 'desc')])
+  return getCollection<Cotacao>('cotacoes', [orderBy('data', 'desc'), limit(limite)])
 }
 
 export async function saveCotacao(data: Omit<Cotacao, 'id'>): Promise<string> {

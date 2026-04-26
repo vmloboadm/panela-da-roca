@@ -41,6 +41,16 @@ interface LeituraRequest {
   contextoAdicional?: string   // ex: "Fornecedor: Assaí Atacadista"
 }
 
+export const config = {
+  api: { bodyParser: { sizeLimit: '15mb' } },
+}
+
+const ALLOWED_MIME_TYPES = new Set([
+  'image/jpeg', 'image/png', 'image/webp', 'image/heic',
+  'application/pdf',
+  'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac',
+])
+
 export async function POST(request: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) {
@@ -58,8 +68,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'base64 e mimeType são obrigatórios.' }, { status: 400 })
   }
 
-  const promptTexto = body.contextoAdicional
-    ? `${PROMPT_LEITURA}\n\nContexto adicional fornecido pelo usuário: ${body.contextoAdicional}`
+  if (!ALLOWED_MIME_TYPES.has(body.mimeType)) {
+    return NextResponse.json({ error: 'Tipo de arquivo não suportado.' }, { status: 400 })
+  }
+
+  const MAX_BASE64_MB = 10
+  if (body.base64.length > MAX_BASE64_MB * 1024 * 1024) {
+    return NextResponse.json({ error: `Arquivo muito grande. Máximo ${MAX_BASE64_MB} MB.` }, { status: 413 })
+  }
+
+  const contextoSanitizado = body.contextoAdicional
+    ?.replace(/[\r\n]+/g, ' ')
+    .slice(0, 200)
+
+  const promptTexto = contextoSanitizado
+    ? `${PROMPT_LEITURA}\n\nContexto adicional: ${contextoSanitizado}`
     : PROMPT_LEITURA
 
   const geminiBody = {

@@ -49,9 +49,9 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
 
     const cotacoes: Omit<Cotacao, 'id'>[] = itens
       .filter((_, i) => selecionados.has(i))
-      .filter(item => item.preco_unitario !== null)
+      .filter(item => item.preco_unitario !== null && !!item.produto_id)
       .map(item => ({
-        produto_id: item.produto_id ?? '',
+        produto_id: item.produto_id!,
         fornecedor_id: fornecedorId,
         preco: item.preco_unitario!,
         unidade: item.unidade,
@@ -68,7 +68,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
     }
   }
 
-  const itensSelecionadosComPreco = itens.filter((item, i) => selecionados.has(i) && item.preco_unitario !== null)
+  const itensSelecionadosComPreco = itens.filter((item, i) => selecionados.has(i) && item.preco_unitario !== null && !!item.produto_id)
 
   if (resultado.itens.length === 0) {
     return (
@@ -182,6 +182,12 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
           </div>
         ))}
       </div>
+
+      {itens.some(item => !item.produto_id) && (
+        <p className="text-amber-400 text-xs bg-amber-400/10 rounded-lg px-3 py-2">
+          ⚠️ Itens sem produto cadastrado no sistema não serão salvos. Cadastre o produto primeiro na aba Fornecedores.
+        </p>
+      )}
 
       {/* Footer */}
       <div className="flex gap-2 justify-between items-center flex-wrap">
