@@ -21,6 +21,7 @@ export interface Produto {
   id: string
   nome: string
   categoria: string
+  subcategoria?: string
   unidade_padrao: string       // "kg", "un", "L", "dz", "cx"
   descricao?: string           // "Carne bovina traseira, ideal para churrasco" — helps AI understand
   sinonimos?: string[]         // ["picanha", "picanha nacional"] — AI recognizes variations

@@ -48,7 +48,7 @@ export const config = {
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg', 'image/png', 'image/webp', 'image/heic',
   'application/pdf',
-  'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac',
+  'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4', 'audio/aac', 'audio/webm',
 ])
 
 export async function POST(request: NextRequest) {
@@ -100,36 +100,48 @@ export async function POST(request: NextRequest) {
     },
   }
 
-  try {
-    const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(geminiBody),
-    })
-
-    const data = await res.json()
-
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: data?.error?.message ?? `Erro Gemini: ${res.status}` },
-        { status: res.status }
-      )
-    }
-
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}'
-    let resultado: LeituraIAResultado
+  const RETRIES = 3
+  let lastError = ''
+  for (let attempt = 1; attempt <= RETRIES; attempt++) {
     try {
-      resultado = JSON.parse(text)
-    } catch {
-      return NextResponse.json(
-        { error: 'Gemini retornou resposta não-JSON.', raw: text },
-        { status: 502 }
-      )
-    }
+      const res = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(geminiBody),
+      })
 
-    return NextResponse.json(resultado)
-  } catch (err) {
-    const message = err instanceof Error ? err.message : 'Erro desconhecido'
-    return NextResponse.json({ error: message }, { status: 500 })
+      const data = await res.json()
+
+      // Retry on overload/rate-limit
+      if ((res.status === 503 || res.status === 429) && attempt < RETRIES) {
+        await new Promise(r => setTimeout(r, attempt * 1500))
+        lastError = data?.error?.message ?? `Gemini ${res.status}`
+        continue
+      }
+
+      if (!res.ok) {
+        return NextResponse.json(
+          { error: data?.error?.message ?? `Erro Gemini: ${res.status}` },
+          { status: res.status }
+        )
+      }
+
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? '{}'
+      let resultado: LeituraIAResultado
+      try {
+        resultado = JSON.parse(text)
+      } catch {
+        return NextResponse.json(
+          { error: 'Gemini retornou resposta não-JSON.', raw: text },
+          { status: 502 }
+        )
+      }
+
+      return NextResponse.json(resultado)
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : 'Erro desconhecido'
+      if (attempt < RETRIES) await new Promise(r => setTimeout(r, attempt * 1500))
+    }
   }
+  return NextResponse.json({ error: lastError || 'Erro ao processar imagem' }, { status: 500 })
 }
