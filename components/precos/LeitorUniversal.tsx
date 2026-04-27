@@ -7,6 +7,7 @@ import { Button } from '@/components/ui'
 
 interface LeitorUniversalProps {
   onResultado: (resultado: LeituraIAResultado, nomeArquivo: string) => void
+  onArquivo?: (file: File) => void
   contexto?: string
   accept?: string
   disabled?: boolean
@@ -31,7 +32,7 @@ const TIPO_LABELS: Record<string, string> = {
   'audio/aac': '🎵 Áudio',
 }
 
-export function LeitorUniversal({ onResultado, contexto, accept = ACCEPT_DEFAULT, disabled, labels }: LeitorUniversalProps) {
+export function LeitorUniversal({ onResultado, onArquivo, contexto, accept = ACCEPT_DEFAULT, disabled, labels }: LeitorUniversalProps) {
   const [dragging, setDragging] = useState(false)
   const [loading, setLoading] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
@@ -40,6 +41,7 @@ export function LeitorUniversal({ onResultado, contexto, accept = ACCEPT_DEFAULT
 
   async function processarArquivo(file: File) {
     setErro(null)
+    if (onArquivo) onArquivo(file)
     setPreview({
       url: URL.createObjectURL(file),
       tipo: file.type,
