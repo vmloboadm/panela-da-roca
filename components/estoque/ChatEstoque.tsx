@@ -212,7 +212,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
 
                 {msg.itens.map((item, i) => (
                   <div key={i} className={['rounded-lg px-2.5 py-2 flex items-start justify-between gap-2',
-                    item.produto_id ? 'bg-white' : 'bg-amber-500/10 border border-amber-500/20',
+                    item.produto_id ? 'bg-white' : 'bg-warning/10 border border-warning/20',
                   ].join(' ')}>
                     <div className="flex-1 min-w-0">
                       <p className="text-text-primary text-xs font-semibold truncate">{item.produto_nome}</p>
