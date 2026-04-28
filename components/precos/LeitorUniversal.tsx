@@ -83,7 +83,7 @@ export function LeitorUniversal({ onResultado, onArquivo, contexto, accept = ACC
         onClick={() => !disabled && !loading && inputRef.current?.click()}
         className={[
           'border-2 border-dashed rounded-xl p-6 flex flex-col items-center gap-3 transition-colors cursor-pointer select-none',
-          dragging ? 'border-brand bg-brand/10' : 'border-border hover:border-border',
+          dragging ? 'border-brand bg-brand/10' : 'border-border hover:border-brand',
           (disabled || loading) ? 'opacity-50 cursor-not-allowed' : '',
         ].join(' ')}
       >

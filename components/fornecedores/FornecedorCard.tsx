@@ -42,7 +42,7 @@ export function FornecedorCard({ fornecedor, onEdit }: FornecedorCardProps) {
             href={fornecedor.instagram_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 bg-bg-page border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-muted hover:text-text-secondary hover:border-border transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 bg-bg-page border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-muted hover:text-text-secondary hover:border-border-focus transition-colors"
           >
             <span>📸</span>
             <span>Instagram</span>

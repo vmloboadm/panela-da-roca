@@ -126,7 +126,7 @@ export function VarreduraWeb({ produtos, fornecedores, onCotacoesSalvas }: Varre
                 key={p.id}
                 className={[
                   'flex items-center gap-2 border rounded-lg px-3 py-2 cursor-pointer transition-colors text-sm',
-                  selecionados.has(p.id) ? 'border-brand bg-brand/10 text-text-primary' : 'border-border text-text-muted hover:border-border',
+                  selecionados.has(p.id) ? 'border-brand bg-brand/10 text-text-primary' : 'border-border text-text-muted hover:border-brand',
                 ].join(' ')}
               >
                 <input
