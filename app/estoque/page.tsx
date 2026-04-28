@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Card, SectionTitle } from '@/components/ui'
+import { CategoriaCard } from '@/components/estoque/CategoriaCard'
 import { ProdutoEstoqueCard } from '@/components/estoque/ProdutoEstoqueCard'
 import { EntradaEstoque } from '@/components/estoque/EntradaEstoque'
 import { BaixaEstoque } from '@/components/estoque/BaixaEstoque'
@@ -36,7 +37,6 @@ export default function EstoquePage() {
   const [busca, setBusca] = useState('')
   const [catFiltro, setCatFiltro] = useState<string | null>(null)   // categoria.id
   const [subFiltro, setSubFiltro] = useState<string | null>(null)   // subcategoria.id
-  const [mostrarInsights, setMostrarInsights] = useState(false)
 
   const recarregarProdutos = useCallback(async () => {
     const prods = await getProdutos()
@@ -99,66 +99,6 @@ export default function EstoquePage() {
     return prods
   }, [ativos, busca, catConfig, subFiltro])
 
-  // Group products by subcategory for display
-  type Grupo = { titulo: string; cor: string; produtos: Produto[] }
-  const grupos: Grupo[] = useMemo(() => {
-    const buscaAtiva = busca.trim().length > 0
-
-    if (buscaAtiva) {
-      // Flat list when searching, group by category for context
-      const byCat = new Map<string, Produto[]>()
-      for (const p of produtosFiltrados) {
-        const label = p.subcategoria ? `${p.categoria} · ${p.subcategoria}` : p.categoria
-        if (!byCat.has(label)) byCat.set(label, [])
-        byCat.get(label)!.push(p)
-      }
-      return Array.from(byCat.entries()).map(([titulo, prods]) => {
-        const cat = CATEGORIAS.find(c => c.nome === prods[0]?.categoria)
-        return { titulo, cor: cat?.cor ?? '#888', produtos: prods }
-      })
-    }
-
-    if (catConfig && subFiltro) {
-      // Single subcategory selected
-      const sub = catConfig.subcategorias.find(s => s.id === subFiltro)
-      return [{
-        titulo: sub?.nome ?? 'Produtos',
-        cor: catConfig.cor,
-        produtos: produtosFiltrados,
-      }]
-    }
-
-    if (catConfig) {
-      // Category selected → group by subcategory
-      return catConfig.subcategorias
-        .map(sub => ({
-          titulo: sub.nome,
-          cor: catConfig.cor,
-          produtos: produtosFiltrados.filter(p => p.subcategoria === sub.nome),
-        }))
-        .concat([{
-          titulo: 'Outros',
-          cor: catConfig.cor,
-          produtos: produtosFiltrados.filter(p => !p.subcategoria),
-        }])
-        .filter(g => g.produtos.length > 0)
-    }
-
-    // No filter → group by category, then subcategory
-    const result: Grupo[] = []
-    for (const cat of CATEGORIAS) {
-      const prodsCat = produtosFiltrados.filter(p => p.categoria === cat.nome)
-      if (prodsCat.length === 0) continue
-      for (const sub of cat.subcategorias) {
-        const prodsSub = prodsCat.filter(p => p.subcategoria === sub.nome)
-        if (prodsSub.length > 0) result.push({ titulo: `${cat.icon} ${cat.nome}  ›  ${sub.nome}`, cor: cat.cor, produtos: prodsSub })
-      }
-      const sem = prodsCat.filter(p => !p.subcategoria)
-      if (sem.length > 0) result.push({ titulo: `${cat.icon} ${cat.nome}`, cor: cat.cor, produtos: sem })
-    }
-    return result
-  }, [produtosFiltrados, busca, catConfig, subFiltro])
-
   function selecionarCategoria(id: string) {
     if (catFiltro === id) { setCatFiltro(null); setSubFiltro(null) }
     else { setCatFiltro(id); setSubFiltro(null) }
@@ -179,36 +119,41 @@ export default function EstoquePage() {
 
   return (
     <div className="fadein flex flex-col gap-0">
-      <div className="flex flex-col gap-3 pb-20">
+      <div className="flex flex-col gap-3 pb-32">
 
         {/* ══ ABA: ESTOQUE ══ */}
         {aba === 'estoque' && (
           <>
             {/* Summary strip */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="bg-bg-card rounded-xl p-3 border border-border flex flex-col gap-0.5">
-                <p className="text-text-faint text-[10px]">Produtos</p>
-                <p className="text-text-primary font-extrabold text-xl leading-tight">{ativos.length}</p>
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              <div className="bg-white rounded-xl shadow-card p-3 text-center">
+                <p className="text-lg">💰</p>
+                <p className="text-base font-extrabold text-text-primary">{fmtBRL(valorTotal)}</p>
+                <p className="text-[10px] text-text-muted">em estoque</p>
               </div>
-              <div className={['rounded-xl p-3 border flex flex-col gap-0.5', totalAlertas > 0 ? 'bg-red-500/10 border-red-500/30' : 'bg-bg-card border-border'].join(' ')}>
-                <p className="text-text-faint text-[10px]">Alertas</p>
-                <p className={['font-extrabold text-xl leading-tight', totalAlertas > 0 ? 'text-red-400' : 'text-text-primary'].join(' ')}>{totalAlertas}</p>
+              <div className="bg-white rounded-xl shadow-card p-3 text-center">
+                <p className="text-lg">⚠️</p>
+                <p className={['text-base font-extrabold', totalAlertas > 0 ? 'text-warning' : 'text-text-primary'].join(' ')}>
+                  {totalAlertas}
+                </p>
+                <p className="text-[10px] text-text-muted">alertas</p>
               </div>
-              <div className="bg-bg-card rounded-xl p-3 border border-border flex flex-col gap-0.5">
-                <p className="text-text-faint text-[10px]">Em estoque</p>
-                <p className="text-text-primary font-extrabold text-sm leading-tight">{fmtBRL(valorTotal)}</p>
+              <div className="bg-white rounded-xl shadow-card p-3 text-center">
+                <p className="text-lg">📦</p>
+                <p className="text-base font-extrabold text-text-primary">{ativos.length}</p>
+                <p className="text-[10px] text-text-muted">produtos</p>
               </div>
             </div>
 
             {/* Search */}
-            <div className="relative">
+            <div className="relative mb-3">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-faint text-sm pointer-events-none">🔍</span>
               <input
                 type="text"
                 value={busca}
                 onChange={e => { setBusca(e.target.value); setCatFiltro(null); setSubFiltro(null) }}
-                placeholder="Buscar produto por nome..."
-                className="w-full bg-bg-card border border-border rounded-xl pl-9 pr-4 py-2.5 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none transition-colors"
+                placeholder="Buscar produto..."
+                className="w-full bg-white border border-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-text-primary placeholder:text-text-faint focus:border-border-focus focus:ring-2 focus:ring-brand/15 outline-none transition-colors"
               />
               {busca && (
                 <button
@@ -222,7 +167,7 @@ export default function EstoquePage() {
 
             {/* Category chips */}
             {!busca && (
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+              <div className="flex gap-2 overflow-x-auto pb-1 mb-3 scrollbar-none">
                 {CATEGORIAS.map(cat => {
                   const prodsCat = ativos.filter(p => p.categoria === cat.nome)
                   if (prodsCat.length === 0) return null
@@ -232,24 +177,21 @@ export default function EstoquePage() {
                     <button
                       key={cat.id}
                       onClick={() => selecionarCategoria(cat.id)}
-                      className="flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1.5 text-xs font-bold border transition-all"
-                      style={{
-                        backgroundColor: ativo ? cat.cor : 'transparent',
-                        borderColor: ativo ? cat.cor : '#1e2130',
-                        color: ativo ? '#fff' : cat.cor,
-                      }}
+                      className={[
+                        'shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all',
+                        ativo
+                          ? 'bg-brand text-white border-brand'
+                          : 'bg-white border-border text-text-secondary hover:border-brand hover:text-brand',
+                      ].join(' ')}
                     >
                       <span>{cat.icon}</span>
                       <span>{cat.nome}</span>
                       {alertasCat > 0 && (
-                        <span
-                          className="text-[9px] font-extrabold px-1 rounded-full"
-                          style={{
-                            backgroundColor: ativo ? 'rgba(255,255,255,0.3)' : `${cat.cor}33`,
-                            color: ativo ? '#fff' : cat.cor,
-                          }}
-                        >
-                          {alertasCat}⚠
+                        <span className={[
+                          'text-[9px] font-bold px-1 rounded-full',
+                          ativo ? 'bg-white/20 text-white' : 'bg-warning/20 text-warning',
+                        ].join(' ')}>
+                          {alertasCat}
                         </span>
                       )}
                     </button>
@@ -258,111 +200,107 @@ export default function EstoquePage() {
               </div>
             )}
 
-            {/* Subcategory chips */}
-            {!busca && catConfig && (
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-                {catConfig.subcategorias.map(sub => {
-                  const prodsSub = ativos.filter(p => p.categoria === catConfig.nome && p.subcategoria === sub.nome)
-                  if (prodsSub.length === 0) return null
-                  const alertasSub = prodsSub.filter(p => p.estoque_atual < p.estoque_minimo).length
-                  const ativo = subFiltro === sub.id
-                  return (
-                    <button
-                      key={sub.id}
-                      onClick={() => selecionarSub(sub.id)}
-                      className="flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold border transition-all"
-                      style={{
-                        backgroundColor: ativo ? `${catConfig.cor}33` : 'transparent',
-                        borderColor: ativo ? catConfig.cor : '#1e2130',
-                        color: ativo ? catConfig.cor : '#888',
-                      }}
-                    >
-                      <span>{sub.nome}</span>
-                      <span className="text-[9px] opacity-60">{prodsSub.length}</span>
-                      {alertasSub > 0 && <span className="text-[9px]" style={{ color: catConfig.cor }}>⚠</span>}
-                    </button>
-                  )
-                })}
-              </div>
-            )}
+            {/* Main content: category grid OR product list */}
+            {catFiltro === null && busca === '' ? (
+              <>
+                {/* Grid de categorias — 2 colunas */}
+                <div className="grid grid-cols-2 gap-3">
+                  {CATEGORIAS.map(cat => {
+                    const prods = ativos.filter(p => p.categoria === cat.nome)
+                    if (prods.length === 0) return null
+                    const alertas = prods.filter(p => p.estoque_atual < p.estoque_minimo).length
+                    const valor = prods.reduce((s, p) => s + p.estoque_atual * p.custo_medio, 0)
+                    return (
+                      <CategoriaCard
+                        key={cat.id}
+                        config={cat}
+                        totalProdutos={prods.length}
+                        alertas={alertas}
+                        valorTotal={valor}
+                        onClick={() => selecionarCategoria(cat.id)}
+                      />
+                    )
+                  })}
+                </div>
 
-            {/* Context label when browsing */}
-            {!busca && (catConfig || subFiltro) && (
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => { setCatFiltro(null); setSubFiltro(null) }}
-                  className="text-text-faint text-[10px] hover:text-text-muted"
-                >
-                  ✕ Limpar filtro
-                </button>
-                <span className="text-text-faint text-[10px]">·</span>
-                <span className="text-text-muted text-[10px]">
-                  {produtosFiltrados.length} produto{produtosFiltrados.length !== 1 ? 's' : ''}
-                  {catConfig ? ` em ${catConfig.nome}` : ''}
-                  {subFiltro && catConfig ? ` › ${catConfig.subcategorias.find(s => s.id === subFiltro)?.nome}` : ''}
-                </span>
-              </div>
-            )}
-
-            {/* Search result label */}
-            {busca && (
-              <p className="text-text-muted text-[11px]">
-                {produtosFiltrados.length} resultado{produtosFiltrados.length !== 1 ? 's' : ''} para &quot;{busca}&quot;
-              </p>
-            )}
-
-            {/* Products grouped */}
-            {grupos.length === 0 ? (
-              <div className="bg-bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-2">
-                <span className="text-3xl">🔍</span>
-                <p className="text-text-muted text-sm">
-                  {busca ? `Nenhum produto com "${busca}"` : 'Nenhum produto nesta categoria'}
-                </p>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                {grupos.map(grupo => (
-                  <div key={grupo.titulo} className="flex flex-col gap-2">
-                    {/* Group header */}
-                    <div className="flex items-center gap-2">
-                      <div className="h-px flex-1 bg-border" />
-                      <span
-                        className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                        style={{ color: grupo.cor, backgroundColor: `${grupo.cor}15` }}
-                      >
-                        {grupo.titulo}
-                      </span>
-                      <div className="h-px flex-1 bg-border" />
-                    </div>
-                    {/* Product cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {grupo.produtos.map(p => (
-                        <ProdutoEstoqueCard
-                          key={p.id}
-                          produto={p}
-                          onEntrada={() => setAba('entrada')}
-                          onBaixa={() => setAba('baixa')}
-                        />
-                      ))}
-                    </div>
+                {/* Donut chart — sempre visível */}
+                {donutSegmentos.length > 0 && (
+                  <div className="bg-white rounded-xl shadow-card p-4 mt-3">
+                    <p className="text-sm font-bold text-text-secondary mb-3">📊 Distribuição por categoria</p>
+                    <DonutChart segmentos={donutSegmentos} />
                   </div>
-                ))}
+                )}
+              </>
+            ) : (
+              /* Lista de produtos filtrados (busca ativa ou categoria selecionada) */
+              <div className="flex flex-col gap-2">
+                {/* Context label */}
+                {(catConfig || busca) && (
+                  <div className="flex items-center gap-2 mb-1">
+                    {catConfig && (
+                      <button
+                        onClick={() => { setCatFiltro(null); setSubFiltro(null) }}
+                        className="text-text-faint text-[10px] hover:text-text-muted transition-colors"
+                      >
+                        ✕ Limpar filtro
+                      </button>
+                    )}
+                    <span className="text-text-faint text-[10px]">
+                      {busca
+                        ? `${produtosFiltrados.length} resultado${produtosFiltrados.length !== 1 ? 's' : ''} para "${busca}"`
+                        : `${produtosFiltrados.length} produto${produtosFiltrados.length !== 1 ? 's' : ''}${catConfig ? ` em ${catConfig.nome}` : ''}`
+                      }
+                    </span>
+                  </div>
+                )}
+
+                {/* Chips de subcategoria */}
+                {!busca && catConfig && (
+                  <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    {catConfig.subcategorias.map(sub => {
+                      const prodsSub = ativos.filter(p => p.categoria === catConfig.nome && p.subcategoria === sub.nome)
+                      if (prodsSub.length === 0) return null
+                      const alertasSub = prodsSub.filter(p => p.estoque_atual < p.estoque_minimo).length
+                      const ativo = subFiltro === sub.id
+                      return (
+                        <button
+                          key={sub.id}
+                          onClick={() => selecionarSub(sub.id)}
+                          className={[
+                            'flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold border transition-all',
+                            ativo
+                              ? 'bg-brand text-white border-brand'
+                              : 'bg-white border-border text-text-secondary hover:border-brand hover:text-brand',
+                          ].join(' ')}
+                        >
+                          <span>{sub.nome}</span>
+                          <span className="text-[9px] opacity-60">{prodsSub.length}</span>
+                          {alertasSub > 0 && <span className="text-[9px] text-warning ml-0.5">⚠</span>}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {/* Cards de produto */}
+                {produtosFiltrados.length === 0 ? (
+                  <div className="bg-white rounded-xl border border-border p-8 flex flex-col items-center gap-2">
+                    <span className="text-3xl">🔍</span>
+                    <p className="text-text-muted text-sm">
+                      {busca ? `Nenhum produto com "${busca}"` : 'Nenhum produto nesta categoria'}
+                    </p>
+                  </div>
+                ) : (
+                  produtosFiltrados.map(produto => (
+                    <ProdutoEstoqueCard
+                      key={produto.id}
+                      produto={produto}
+                      onEntrada={() => setAba('entrada')}
+                      onBaixa={() => setAba('baixa')}
+                    />
+                  ))
+                )}
               </div>
-            )}
-
-            {/* Insights toggle */}
-            <button
-              onClick={() => setMostrarInsights(v => !v)}
-              className="w-full text-center text-text-faint text-xs py-2 hover:text-text-muted transition-colors"
-            >
-              {mostrarInsights ? '▲ Ocultar insights' : '📊 Ver gráfico de valor por categoria'}
-            </button>
-
-            {mostrarInsights && donutSegmentos.length > 0 && (
-              <Card>
-                <SectionTitle icon="📊">Valor por Categoria</SectionTitle>
-                <DonutChart segmentos={donutSegmentos} />
-              </Card>
             )}
           </>
         )}
@@ -396,7 +334,7 @@ export default function EstoquePage() {
         {/* ══ ABA: BAIXA ══ */}
         {aba === 'baixa' && (
           <Card>
-            <div className="flex gap-1 bg-bg-base rounded-lg p-1 mb-3">
+            <div className="flex gap-1 bg-bg-page rounded-lg p-1 mb-3">
               {(['baixa', 'perda'] as AbaMovimento[]).map(sub => (
                 <button
                   key={sub}
@@ -427,21 +365,21 @@ export default function EstoquePage() {
         )}
       </div>
 
-      {/* Bottom nav */}
-      <div className="fixed bottom-0 left-0 right-0 bg-bg-card border-t border-border flex z-50">
+      {/* Bottom nav — estoque tabs, sits above global BottomNav */}
+      <div className="fixed bottom-16 left-0 right-0 z-40 bg-white border-t border-border flex shadow-elevated">
         {ABAS.map(a => (
           <button
             key={a.id}
             onClick={() => { setAba(a.id); if (a.id === 'estoque') { setCatFiltro(null); setSubFiltro(null); setBusca('') } }}
             className={[
-              'flex-1 flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-bold transition-colors relative',
-              aba === a.id ? 'text-brand' : 'text-text-faint hover:text-text-muted',
+              'flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors relative',
+              aba === a.id ? 'text-brand bg-brand-light/40' : 'text-text-faint hover:text-text-muted',
             ].join(' ')}
           >
-            <span className="text-lg leading-none">{a.icon}</span>
+            <span className="text-base leading-none">{a.icon}</span>
             <span>{a.label}</span>
             {a.id === 'estoque' && totalAlertas > 0 && (
-              <span className="absolute top-1.5 right-[18%] w-3.5 h-3.5 bg-red-500 text-white text-[8px] rounded-full flex items-center justify-center font-bold">
+              <span className="absolute top-1.5 right-[18%] w-3.5 h-3.5 bg-danger text-white text-[8px] rounded-full flex items-center justify-center font-bold">
                 {totalAlertas > 9 ? '9+' : totalAlertas}
               </span>
             )}
