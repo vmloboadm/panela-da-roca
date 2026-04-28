@@ -9,43 +9,53 @@ const config: Config = {
     extend: {
       colors: {
         bg: {
-          base:  '#0f1117',
-          card:  '#16181f',
-          hover: '#1a1d25',
-          input: '#0f1117',
+          page:  '#FFF8F0',
+          card:  '#FFFFFF',
+          hover: '#FFF3E8',
+          input: '#FFFFFF',
+          base:  '#FFF8F0',
         },
         border: {
-          DEFAULT: '#2a2d3a',
-          focus:   '#f4a261',
-          light:   '#3a3f55',
+          DEFAULT: '#F0E6D3',
+          focus:   '#C2410C',
+          light:   '#F0E6D3',
         },
         text: {
-          primary:   '#ffffff',
-          secondary: '#e0e0e0',
-          muted:     '#aaaaaa',
-          faint:     '#555555',
+          primary:   '#1C0A00',
+          secondary: '#78350F',
+          muted:     '#92400E',
+          faint:     '#C4884A',
         },
         brand: {
-          DEFAULT: '#f4a261',
-          dark:    '#e76f51',
+          DEFAULT: '#C2410C',
+          dark:    '#7C2D12',
+          hover:   '#9A3412',
+          light:   '#FED7AA',
+        },
+        accent: {
+          DEFAULT: '#D97706',
         },
         success: {
-          DEFAULT: '#16a34a',
+          DEFAULT: '#15803D',
           light:   '#86efac',
-          bg:      'rgba(22,163,74,0.07)',
+          bg:      'rgba(21,128,61,0.07)',
         },
         danger: {
-          DEFAULT: '#ef4444',
+          DEFAULT: '#DC2626',
           light:   '#fca5a5',
         },
         warning: {
-          DEFAULT: '#f59e0b',
+          DEFAULT: '#D97706',
           light:   '#fbbf24',
         },
         info: {
           DEFAULT: '#3b82f6',
           light:   '#60a5fa',
         },
+      },
+      boxShadow: {
+        card:     '0 1px 4px rgba(120,53,15,0.10)',
+        elevated: '0 4px 16px rgba(120,53,15,0.15)',
       },
       fontFamily: {
         sans: ['DM Sans', 'Segoe UI', 'sans-serif'],

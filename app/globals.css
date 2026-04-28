@@ -10,17 +10,17 @@
 }
 
 body {
-  background: #0f1117;
-  color: #e0e0e0;
+  background: #FFF8F0;
+  color: #1C0A00;
   font-family: 'DM Sans', 'Segoe UI', sans-serif;
   min-height: 100vh;
 }
 
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #0f1117; }
-::-webkit-scrollbar-thumb { background: #2a2d3a; border-radius: 3px; }
+::-webkit-scrollbar-track { background: #FFF8F0; }
+::-webkit-scrollbar-thumb { background: #F0E6D3; border-radius: 3px; }
 
-select option { background: #16181f; }
+select option { background: #FFFFFF; }
 
 @keyframes fadein {
   from { opacity: 0; transform: translateY(8px); }
