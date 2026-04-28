@@ -12,13 +12,10 @@ const config: Config = {
           page:  '#FFF8F0',
           card:  '#FFFFFF',
           hover: '#FFF3E8',
-          input: '#FFFFFF',
-          base:  '#FFF8F0',
         },
         border: {
           DEFAULT: '#F0E6D3',
           focus:   '#C2410C',
-          light:   '#F0E6D3',
         },
         text: {
           primary:   '#1C0A00',

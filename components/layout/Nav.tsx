@@ -15,7 +15,7 @@ export function Nav() {
   const pathname = usePathname()
 
   return (
-    <nav className="bg-bg-card border-b border-[#1e2130] px-6 flex overflow-x-auto">
+    <nav className="bg-bg-card border-b border-border px-6 flex overflow-x-auto">
       {ABAS.map(aba => (
         <Link
           key={aba.href}
