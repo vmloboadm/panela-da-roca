@@ -28,7 +28,7 @@ export function FiltroFornecedores({ filtroAtivo, onChange }: FiltroFornecedores
             'px-4 py-2 rounded-lg text-[13px] font-bold transition-all border',
             filtroAtivo === value
               ? 'bg-brand text-white border-brand'
-              : 'bg-bg-hover text-text-muted border-border hover:text-text-secondary hover:border-border-light'
+              : 'bg-bg-hover text-text-muted border-border hover:text-text-secondary hover:border-border'
           )}
         >
           {label}

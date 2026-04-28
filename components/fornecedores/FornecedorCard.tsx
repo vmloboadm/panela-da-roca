@@ -15,12 +15,12 @@ export function FornecedorCard({ fornecedor, onEdit }: FornecedorCardProps) {
   return (
     <div
       style={{ borderLeftColor: fornecedor.cor, borderColor: `${fornecedor.cor}33` }}
-      className="bg-bg-card rounded-xl p-[14px] border border-l-4 flex flex-col gap-3 hover:bg-bg-hover transition-colors"
+      className="bg-white rounded-xl p-[14px] border border-l-4 flex flex-col gap-3 hover:bg-bg-hover transition-colors"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-text-primary font-bold text-[15px] leading-tight truncate">
+          <p className="text-text-primary font-bold text-[15px] leading-tight break-words">
             {fornecedor.nome}
           </p>
           <p className="text-text-muted text-[12px] mt-0.5">{fornecedor.bairro}</p>
@@ -42,13 +42,13 @@ export function FornecedorCard({ fornecedor, onEdit }: FornecedorCardProps) {
             href={fornecedor.instagram_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 bg-bg-base border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-muted hover:text-text-secondary hover:border-border-light transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 bg-bg-page border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-muted hover:text-text-secondary hover:border-border transition-colors"
           >
             <span>📸</span>
             <span>Instagram</span>
           </a>
         ) : (
-          <div className="flex-1 flex items-center justify-center gap-1.5 bg-bg-base border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-faint cursor-default">
+          <div className="flex-1 flex items-center justify-center gap-1.5 bg-bg-page border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-faint cursor-default">
             <span>⚠️</span>
             <span>Sem Instagram</span>
           </div>
@@ -57,7 +57,7 @@ export function FornecedorCard({ fornecedor, onEdit }: FornecedorCardProps) {
         {/* Edit button */}
         <button
           onClick={() => onEdit(fornecedor)}
-          className="flex items-center justify-center gap-1.5 bg-bg-base border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-muted hover:text-brand hover:border-brand transition-colors"
+          className="flex items-center justify-center gap-1.5 bg-bg-page border border-border rounded-lg px-3 py-2 text-[12px] font-bold text-text-muted hover:text-brand hover:border-brand transition-colors"
           title="Editar fornecedor"
         >
           ✏️

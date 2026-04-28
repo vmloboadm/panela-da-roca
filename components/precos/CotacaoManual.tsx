@@ -120,7 +120,7 @@ export function CotacaoManual({ produtos, fornecedores, onSalvo }: CotacaoManual
       </div>
 
       {sucesso && (
-        <p className="text-green-400 text-xs bg-green-400/10 rounded-lg px-3 py-2">
+        <p className="text-success text-xs bg-success/10 rounded-lg px-3 py-2">
           ✓ Cotação salva com sucesso
         </p>
       )}

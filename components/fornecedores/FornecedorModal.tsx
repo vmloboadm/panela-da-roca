@@ -131,7 +131,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
       className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
-      <div className="bg-bg-card border border-border rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
+      <div className="bg-white border border-border rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
         {/* Title */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-text-primary font-bold text-[17px]">
@@ -150,7 +150,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
           {/* Nome */}
           <div>
             <label className="block text-text-muted text-[12px] font-bold mb-1.5 uppercase tracking-wide">
-              Nome <span className="text-danger-light">*</span>
+              Nome <span className="text-danger">*</span>
             </label>
             <Input
               value={form.nome}
@@ -182,7 +182,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
                 type="color"
                 value={form.cor}
                 onChange={e => setField('cor', e.target.value)}
-                className="w-12 h-[42px] rounded-lg border border-border-light cursor-pointer bg-bg-input"
+                className="w-12 h-[42px] rounded-lg border border-border cursor-pointer bg-white"
                 title="Escolher cor"
               />
             </div>
@@ -260,7 +260,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
               onChange={e => setField('observacoes', e.target.value)}
               rows={3}
               placeholder="Observações opcionais..."
-              className="bg-bg-input border border-border-light rounded-lg px-[13px] py-[10px] text-text-primary text-[13px] outline-none font-sans w-full focus:border-border-focus transition-colors resize-none"
+              className="bg-white border border-border rounded-lg px-[13px] py-[10px] text-text-primary text-[13px] outline-none font-sans w-full focus:border-border-focus transition-colors resize-none"
             />
           </div>
 
@@ -270,7 +270,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
               type="button"
               onClick={() => setField('ativo', !form.ativo)}
               className={`relative w-11 h-6 rounded-full transition-colors ${
-                form.ativo ? 'bg-success' : 'bg-border-light'
+                form.ativo ? 'bg-success' : 'bg-border'
               }`}
             >
               <span
@@ -286,7 +286,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
 
           {/* Error */}
           {error && (
-            <p className="text-danger-light text-[12px] font-bold">{error}</p>
+            <p className="text-danger text-[12px] font-bold">{error}</p>
           )}
         </div>
 

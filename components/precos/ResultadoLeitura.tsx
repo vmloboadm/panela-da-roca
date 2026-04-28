@@ -13,9 +13,9 @@ interface ResultadoLeituraProps {
 }
 
 const CONFIANCA_COR: Record<string, string> = {
-  alta: '#22c55e',
-  media: '#f59e0b',
-  baixa: '#ef4444',
+  alta: '#15803D',
+  media: '#D97706',
+  baixa: '#DC2626',
   estimada: '#6b7280',
 }
 
@@ -72,7 +72,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
 
   if (resultado.itens.length === 0) {
     return (
-      <div className="bg-bg-card rounded-xl p-4 flex flex-col gap-3">
+      <div className="bg-white rounded-xl p-4 flex flex-col gap-3">
         <p className="text-text-muted text-sm">
           🤔 Não foi possível extrair preços deste arquivo.
           {resultado.observacao_geral && ` ${resultado.observacao_geral}`}
@@ -83,7 +83,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
   }
 
   return (
-    <div className="bg-bg-card rounded-xl p-4 flex flex-col gap-4">
+    <div className="bg-white rounded-xl p-4 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
@@ -103,7 +103,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
         <select
           value={fornecedorGlobal}
           onChange={e => setFornecedorGlobal(e.target.value)}
-          className="w-full bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="w-full bg-bg-page border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         >
           <option value="">— Sem fornecedor —</option>
           {fornecedores.map(f => (
@@ -119,7 +119,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
             key={i}
             className={[
               'border rounded-lg p-3 flex flex-col gap-2 transition-colors',
-              selecionados.has(i) ? 'border-border-light bg-bg-base' : 'border-border opacity-50',
+              selecionados.has(i) ? 'border-border bg-bg-page' : 'border-border opacity-50',
             ].join(' ')}
           >
             <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
                   step="0.01"
                   value={item.preco_unitario ?? ''}
                   onChange={e => atualizarItem(i, 'preco_unitario', e.target.value ? Number(e.target.value) : null)}
-                  className="w-24 bg-bg-card border border-border rounded px-2 py-1 text-text-primary text-sm"
+                  className="w-24 bg-white border border-border rounded px-2 py-1 text-text-primary text-sm"
                   placeholder="0,00"
                 />
               </div>
@@ -160,7 +160,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
                   type="text"
                   value={item.unidade}
                   onChange={e => atualizarItem(i, 'unidade', e.target.value)}
-                  className="w-16 bg-bg-card border border-border rounded px-2 py-1 text-text-primary text-sm"
+                  className="w-16 bg-white border border-border rounded px-2 py-1 text-text-primary text-sm"
                 />
               </div>
               {item.quantidade !== null && (
@@ -170,7 +170,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
                     type="number"
                     value={item.quantidade ?? ''}
                     onChange={e => atualizarItem(i, 'quantidade', e.target.value ? Number(e.target.value) : null)}
-                    className="w-16 bg-bg-card border border-border rounded px-2 py-1 text-text-primary text-sm"
+                    className="w-16 bg-white border border-border rounded px-2 py-1 text-text-primary text-sm"
                   />
                 </div>
               )}
@@ -184,7 +184,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
       </div>
 
       {itens.some(item => !item.produto_id) && (
-        <p className="text-amber-400 text-xs bg-amber-400/10 rounded-lg px-3 py-2">
+        <p className="text-warning text-xs bg-warning/10 rounded-lg px-3 py-2">
           ⚠️ Itens sem produto cadastrado no sistema não serão salvos. Cadastre o produto primeiro na aba Fornecedores.
         </p>
       )}

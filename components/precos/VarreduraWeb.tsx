@@ -13,9 +13,9 @@ interface VarreduraWebProps {
 }
 
 const CONFIANCA_COR: Record<ConfiancaCotacao, string> = {
-  alta: '#22c55e',
-  media: '#f59e0b',
-  baixa: '#ef4444',
+  alta: '#15803D',
+  media: '#D97706',
+  baixa: '#DC2626',
   estimada: '#6b7280',
 }
 
@@ -126,7 +126,7 @@ export function VarreduraWeb({ produtos, fornecedores, onCotacoesSalvas }: Varre
                 key={p.id}
                 className={[
                   'flex items-center gap-2 border rounded-lg px-3 py-2 cursor-pointer transition-colors text-sm',
-                  selecionados.has(p.id) ? 'border-brand bg-brand/10 text-text-primary' : 'border-border text-text-muted hover:border-border-light',
+                  selecionados.has(p.id) ? 'border-brand bg-brand/10 text-text-primary' : 'border-border text-text-muted hover:border-border',
                 ].join(' ')}
               >
                 <input
@@ -141,7 +141,7 @@ export function VarreduraWeb({ produtos, fornecedores, onCotacoesSalvas }: Varre
           </div>
 
           {erro && (
-            <p className="text-red-400 text-xs bg-red-400/10 rounded-lg px-3 py-2">{erro}</p>
+            <p className="text-danger text-xs bg-danger/10 rounded-lg px-3 py-2">{erro}</p>
           )}
 
           <Button
@@ -175,7 +175,7 @@ export function VarreduraWeb({ produtos, fornecedores, onCotacoesSalvas }: Varre
           </div>
 
           {resultados.map(res => (
-            <div key={res.produto_id} className="bg-bg-base border border-border rounded-xl p-3 flex flex-col gap-2">
+            <div key={res.produto_id} className="bg-bg-page border border-border rounded-xl p-3 flex flex-col gap-2">
               <p className="text-text-primary font-bold text-sm">{res.produto_nome}</p>
               {res.cotacoes.length === 0 ? (
                 <p className="text-text-muted text-xs">Nenhum preço encontrado na web</p>

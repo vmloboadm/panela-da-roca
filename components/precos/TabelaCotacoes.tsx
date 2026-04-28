@@ -11,9 +11,9 @@ interface TabelaCotacoesProps {
 }
 
 const CONFIANCA_COR: Record<ConfiancaCotacao, string> = {
-  alta: '#22c55e',
-  media: '#f59e0b',
-  baixa: '#ef4444',
+  alta: '#15803D',
+  media: '#D97706',
+  baixa: '#DC2626',
   estimada: '#6b7280',
 }
 
@@ -65,14 +65,14 @@ export function TabelaCotacoes({ cotacoes, produtos, fornecedores, alertaPercent
         const menorPreco = Math.min(...cots.map(c => c.preco))
 
         return (
-          <div key={prodId} className="bg-bg-base border border-border rounded-xl overflow-hidden">
+          <div key={prodId} className="bg-bg-page border border-border rounded-xl overflow-hidden">
             {/* Header do produto */}
             <div className="px-3 py-2 flex items-center gap-2 border-b border-border">
               <span className="text-text-primary font-bold text-sm flex-1">
                 {produto?.nome ?? prodId}
               </span>
               {temAlerta && (
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${variacao! > 0 ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'}`}>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${variacao! > 0 ? 'bg-danger/10 text-danger' : 'bg-success/10 text-success'}`}>
                   {variacao! > 0 ? '↑' : '↓'} {Math.abs(variacao!).toFixed(1)}%
                 </span>
               )}
@@ -89,10 +89,10 @@ export function TabelaCotacoes({ cotacoes, produtos, fornecedores, alertaPercent
                   <div key={c.id} className="px-3 py-2 flex items-center gap-2 flex-wrap">
                     <span className="text-text-muted text-xs w-20 shrink-0">{c.data}</span>
                     <span
-                      className={`font-bold text-sm ${eMenor ? 'text-green-400' : 'text-text-primary'}`}
+                      className={`font-bold text-sm ${eMenor ? 'text-success' : 'text-text-primary'}`}
                     >
                       {fmtBRL(c.preco)}/{c.unidade}
-                      {eMenor && <span className="ml-1 text-[10px] text-green-400">★ menor</span>}
+                      {eMenor && <span className="ml-1 text-[10px] text-success">★ menor</span>}
                     </span>
                     <span className="text-text-muted text-xs flex-1">{fornecedor?.nome ?? '—'}</span>
                     <span
