@@ -2,16 +2,17 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/utils/cn'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'ghost' | 'danger'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   children: ReactNode
 }
 
 export function Button({ variant = 'primary', className, children, ...props }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center font-extrabold text-[13px] rounded-lg px-5 py-[10px] cursor-pointer font-sans transition-all whitespace-nowrap disabled:opacity-45 disabled:cursor-not-allowed'
+  const base = 'inline-flex items-center justify-center font-extrabold text-[13px] rounded-xl px-5 py-[10px] cursor-pointer font-sans transition-all whitespace-nowrap disabled:opacity-45 disabled:cursor-not-allowed'
   const variants = {
-    primary: 'bg-gradient-to-br from-brand to-brand-dark text-white border-none',
-    ghost:   'bg-bg-hover text-text-muted border border-border hover:text-text-secondary',
-    danger:  'bg-danger/20 text-danger-light border border-danger/30 hover:bg-danger/30',
+    primary:   'bg-gradient-to-br from-brand to-brand-dark text-white border-none hover:opacity-90',
+    secondary: 'bg-brand-light text-brand hover:opacity-90',
+    ghost:     'bg-bg-hover text-text-muted border border-border hover:text-brand hover:border-brand',
+    danger:    'bg-danger/20 text-danger border border-danger/30 hover:bg-danger/30',
   }
   return (
     <button className={cn(base, variants[variant], className)} {...props}>

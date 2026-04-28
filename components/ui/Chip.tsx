@@ -10,10 +10,10 @@ export function Chip({ selected = false, className, children, ...props }: ChipPr
   return (
     <button
       className={cn(
-        'border rounded-[20px] px-3 py-1 text-xs font-semibold cursor-pointer transition-all font-sans',
+        'border rounded-full px-3 py-1 text-xs font-semibold cursor-pointer transition-all font-sans',
         selected
-          ? 'bg-brand text-black border-brand'
-          : 'bg-brand/[0.13] border-brand/[0.33] text-brand hover:bg-brand/[0.27]',
+          ? 'bg-brand text-white border-brand'
+          : 'bg-border/60 border-border text-text-secondary hover:border-brand hover:text-brand',
         className
       )}
       {...props}
