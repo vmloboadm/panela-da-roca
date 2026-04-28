@@ -194,30 +194,30 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
         {mensagens.map(msg => (
           <div key={msg.id} className={['flex', msg.tipo === 'usuario' ? 'justify-end' : 'justify-start'].join(' ')}>
             {msg.tipo === 'usuario' && (
-              <div className="bg-brand/20 border border-brand/30 rounded-2xl rounded-tr-sm px-3 py-2 max-w-[80%]">
+              <div className="bg-brand/10 border border-brand/20 rounded-2xl rounded-tr-sm px-3 py-2 max-w-[80%]">
                 <p className="text-text-primary text-sm">{msg.texto}</p>
               </div>
             )}
 
             {msg.tipo === 'ia_texto' && (
-              <div className="bg-bg-base border border-border rounded-2xl rounded-tl-sm px-3 py-2 max-w-[85%]">
+              <div className="bg-white border border-border rounded-2xl rounded-tl-sm px-3 py-2 max-w-[85%]">
                 <p className="text-[10px] text-brand font-bold mb-1">🤖 Assistente</p>
                 <p className="text-text-primary text-sm leading-relaxed whitespace-pre-wrap">{msg.texto}</p>
               </div>
             )}
 
             {msg.tipo === 'ia_compra' && msg.itens && (
-              <div className="bg-bg-base border border-green-500/30 rounded-2xl rounded-tl-sm px-3 py-3 w-full max-w-[95%] flex flex-col gap-2">
-                <p className="text-[10px] text-green-400 font-bold">🛒 Compra detectada — confirme antes de salvar</p>
+              <div className="bg-white border border-success/30 rounded-2xl rounded-tl-sm px-3 py-3 w-full max-w-[95%] flex flex-col gap-2">
+                <p className="text-[10px] text-success font-bold">🛒 Compra detectada — confirme antes de salvar</p>
 
                 {msg.itens.map((item, i) => (
                   <div key={i} className={['rounded-lg px-2.5 py-2 flex items-start justify-between gap-2',
-                    item.produto_id ? 'bg-bg-card' : 'bg-amber-500/10 border border-amber-500/20',
+                    item.produto_id ? 'bg-white' : 'bg-amber-500/10 border border-amber-500/20',
                   ].join(' ')}>
                     <div className="flex-1 min-w-0">
                       <p className="text-text-primary text-xs font-semibold truncate">{item.produto_nome}</p>
                       {!item.produto_id && (
-                        <p className="text-amber-400 text-[10px]">⚠️ Produto não mapeado</p>
+                        <p className="text-warning text-[10px]">⚠️ Produto não mapeado</p>
                       )}
                       <p className="text-text-faint text-[10px]">
                         {item.quantidade}{item.unidade}
@@ -226,9 +226,9 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
                       </p>
                     </div>
                     <span className={['text-[9px] px-1.5 py-0.5 rounded-full font-bold',
-                      item.confianca_match === 'alta' ? 'bg-green-500/20 text-green-400' :
-                      item.confianca_match === 'media' ? 'bg-amber-500/20 text-amber-400' :
-                      'bg-red-500/20 text-red-400'
+                      item.confianca_match === 'alta' ? 'bg-success/20 text-success' :
+                      item.confianca_match === 'media' ? 'bg-warning/20 text-warning' :
+                      'bg-danger/20 text-danger'
                     ].join(' ')}>
                       {item.confianca_match}
                     </span>
@@ -244,24 +244,24 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
                     <button
                       onClick={() => confirmarCompra(msg.id, msg.itens!.filter(i => !!i.produto_id))}
                       disabled={!msg.itens.some(i => i.produto_id)}
-                      className="flex-1 text-xs font-bold text-white bg-green-600/80 hover:bg-green-600 rounded-lg py-2 transition-colors disabled:opacity-40"
+                      className="flex-1 text-xs font-bold text-white bg-success hover:opacity-90 rounded-lg py-2 transition-colors disabled:opacity-40"
                     >
                       ✓ Confirmar e salvar no estoque
                     </button>
                   </div>
                 )}
                 {msg.salvando && (
-                  <p className="text-green-400 text-xs text-center animate-pulse">Salvando...</p>
+                  <p className="text-success text-xs text-center animate-pulse">Salvando...</p>
                 )}
                 {msg.salvo && (
-                  <p className="text-green-400 text-xs text-center">✓ Salvo no estoque</p>
+                  <p className="text-success text-xs text-center">✓ Salvo no estoque</p>
                 )}
               </div>
             )}
 
             {msg.tipo === 'sistema' && (
               <div className="w-full flex justify-center">
-                <p className="text-text-faint text-[10px] bg-bg-base rounded-full px-3 py-1">{msg.texto}</p>
+                <p className="text-text-faint text-[10px] bg-border/50 rounded-full px-3 py-1">{msg.texto}</p>
               </div>
             )}
           </div>
@@ -269,7 +269,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
 
         {processando && (
           <div className="flex justify-start">
-            <div className="bg-bg-base border border-border rounded-2xl rounded-tl-sm px-4 py-3">
+            <div className="bg-white border border-border rounded-2xl rounded-tl-sm px-4 py-3">
               <div className="flex gap-1">
                 <span className="w-1.5 h-1.5 bg-brand rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <span className="w-1.5 h-1.5 bg-brand rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -291,7 +291,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && !processando && enviar(input)}
           placeholder={gravando ? 'Gravando... toque para parar' : 'Comprei hoje... ou faça uma pergunta'}
           disabled={processando || gravando}
-          className="flex-1 bg-bg-base border border-border rounded-xl px-3 py-2.5 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none disabled:opacity-50"
+          className="flex-1 bg-white border border-border rounded-xl px-3 py-2.5 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none disabled:opacity-50"
         />
 
         {temMicrofone && (
@@ -302,7 +302,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
               'w-10 h-10 rounded-xl flex items-center justify-center transition-all text-base shrink-0',
               gravando
                 ? 'bg-red-500 text-white animate-pulse'
-                : 'bg-bg-base border border-border text-text-muted hover:border-brand hover:text-brand',
+                : 'bg-white border border-border text-text-muted hover:border-brand hover:text-brand',
             ].join(' ')}
             title={gravando ? 'Parar gravação' : 'Gravar áudio'}
           >

@@ -43,12 +43,9 @@ export function DonutChart({ segmentos, totalLabel }: DonutChartProps) {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      {/* SVG Donut */}
       <div className="relative w-[140px] h-[140px]">
         <svg viewBox="0 0 140 140" className="w-full h-full -rotate-90">
-          {/* Track */}
-          <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1e2130" strokeWidth={22} />
-          {/* Segments */}
+          <circle cx={cx} cy={cy} r={r} fill="none" stroke="#F0E6D3" strokeWidth={22} />
           {arcos.map((arc, i) => (
             <circle
               key={i}
@@ -62,7 +59,6 @@ export function DonutChart({ segmentos, totalLabel }: DonutChartProps) {
             />
           ))}
         </svg>
-        {/* Center text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-[9px] text-text-faint font-medium leading-tight">
             {totalLabel ?? 'em estoque'}
@@ -73,16 +69,12 @@ export function DonutChart({ segmentos, totalLabel }: DonutChartProps) {
         </div>
       </div>
 
-      {/* Legend */}
       <div className="w-full grid grid-cols-2 gap-x-3 gap-y-1.5">
         {ativos.map(seg => {
           const pct = total > 0 ? ((seg.value / total) * 100).toFixed(0) : '0'
           return (
             <div key={seg.label} className="flex items-center gap-1.5 min-w-0">
-              <span
-                className="w-2 h-2 rounded-full shrink-0"
-                style={{ backgroundColor: seg.cor }}
-              />
+              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: seg.cor }} />
               <span className="text-[10px] text-text-muted truncate">{seg.label}</span>
               <span className="text-[10px] text-text-faint ml-auto shrink-0">{pct}%</span>
             </div>
