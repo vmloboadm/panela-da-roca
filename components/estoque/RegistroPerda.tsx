@@ -59,7 +59,7 @@ export function RegistroPerda({ produtos, onSalvo }: RegistroPerdaProps) {
         <select
           value={produto_id}
           onChange={e => { setProdutoId(e.target.value); setSucesso(false) }}
-          className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         >
           <option value="">— Selecione o produto —</option>
           {produtos.filter(p => p.ativo).map(p => (
@@ -77,7 +77,7 @@ export function RegistroPerda({ produtos, onSalvo }: RegistroPerdaProps) {
           value={quantidade}
           onChange={e => setQuantidade(e.target.value)}
           placeholder="0"
-          className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         />
       </div>
 
@@ -91,8 +91,8 @@ export function RegistroPerda({ produtos, onSalvo }: RegistroPerdaProps) {
               className={[
                 'text-xs px-3 py-1.5 rounded-full border transition-colors font-medium',
                 motivo === m
-                  ? 'border-red-500/60 bg-red-500/20 text-red-400'
-                  : 'border-border text-text-muted hover:border-border-light',
+                  ? 'border-danger/60 bg-danger/10 text-danger'
+                  : 'border-border text-text-muted hover:border-brand',
               ].join(' ')}
             >
               {m}
@@ -102,10 +102,10 @@ export function RegistroPerda({ produtos, onSalvo }: RegistroPerdaProps) {
       </div>
 
       {sucesso && (
-        <p className="text-green-400 text-xs bg-green-400/10 rounded-lg px-3 py-2">✓ Perda registrada</p>
+        <p className="text-success text-xs bg-success/10 rounded-lg px-3 py-2">✓ Perda registrada</p>
       )}
       {erro && (
-        <p className="text-red-400 text-xs bg-red-400/10 rounded-lg px-3 py-2">{erro}</p>
+        <p className="text-danger text-xs bg-danger/10 rounded-lg px-3 py-2">{erro}</p>
       )}
 
       <Button

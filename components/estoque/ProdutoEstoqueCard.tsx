@@ -15,11 +15,11 @@ export function ProdutoEstoqueCard({ produto, onEntrada, onBaixa }: ProdutoEstoq
     ? Math.min(100, (produto.estoque_atual / (produto.estoque_minimo * 2)) * 100)
     : produto.estoque_atual > 0 ? 100 : 0
 
-  const corBarra = abaixoMinimo ? '#ef4444' : percentual < 60 ? '#f59e0b' : '#22c55e'
+  const corBarra = abaixoMinimo ? '#DC2626' : percentual < 60 ? '#D97706' : '#15803D'
 
   return (
     <div className={[
-      'bg-bg-card border rounded-xl p-3 flex flex-col gap-2 transition-colors',
+      'bg-white border border-border rounded-xl shadow-card p-3 flex flex-col gap-2 transition-colors',
       abaixoMinimo ? 'border-red-500/50' : 'border-border',
     ].join(' ')}>
       {/* Header */}
@@ -29,7 +29,7 @@ export function ProdutoEstoqueCard({ produto, onEntrada, onBaixa }: ProdutoEstoq
           <p className="text-text-faint text-[11px]">{produto.categoria}</p>
         </div>
         {abaixoMinimo && (
-          <span className="text-xs px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 font-bold shrink-0">
+          <span className="text-xs px-2 py-0.5 rounded-full bg-danger/10 text-danger font-bold shrink-0">
             ⚠️ Baixo
           </span>
         )}
@@ -42,7 +42,7 @@ export function ProdutoEstoqueCard({ produto, onEntrada, onBaixa }: ProdutoEstoq
             <span>{produto.estoque_atual.toFixed(1)}{produto.unidade_padrao}</span>
             <span>mín: {produto.estoque_minimo}{produto.unidade_padrao}</span>
           </div>
-          <div className="h-1.5 bg-bg-base rounded-full overflow-hidden">
+          <div className="h-1.5 bg-border rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all"
               style={{ width: `${percentual}%`, backgroundColor: corBarra }}
@@ -64,7 +64,7 @@ export function ProdutoEstoqueCard({ produto, onEntrada, onBaixa }: ProdutoEstoq
           {onEntrada && (
             <button
               onClick={onEntrada}
-              className="flex-1 text-[11px] font-bold text-green-400 border border-green-500/30 bg-green-500/10 rounded-lg py-1 hover:bg-green-500/20 transition-colors"
+              className="flex-1 text-[11px] font-bold text-success border border-success/30 bg-success/10 rounded-lg py-1 hover:bg-success/20 transition-colors"
             >
               + Entrada
             </button>
@@ -72,7 +72,7 @@ export function ProdutoEstoqueCard({ produto, onEntrada, onBaixa }: ProdutoEstoq
           {onBaixa && (
             <button
               onClick={onBaixa}
-              className="flex-1 text-[11px] font-bold text-text-muted border border-border rounded-lg py-1 hover:border-border-light transition-colors"
+              className="flex-1 text-[11px] font-bold text-text-muted border border-border rounded-lg py-1 hover:border-brand transition-colors"
             >
               − Baixa
             </button>

@@ -57,7 +57,7 @@ export function BaixaEstoque({ produtos, onSalvo }: BaixaEstoqueProps) {
         <select
           value={produto_id}
           onChange={e => { setProdutoId(e.target.value); setSucesso(false) }}
-          className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         >
           <option value="">— Selecione o produto —</option>
           {produtos.filter(p => p.ativo).map(p => (
@@ -79,13 +79,13 @@ export function BaixaEstoque({ produtos, onSalvo }: BaixaEstoqueProps) {
             value={quantidade}
             onChange={e => setQuantidade(e.target.value)}
             placeholder="0"
-            className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+            className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
           />
         </div>
       </div>
 
       {produto && quantidade && Number(quantidade) > produto.estoque_atual && (
-        <p className="text-amber-400 text-xs bg-amber-400/10 rounded-lg px-3 py-2">
+        <p className="text-warning text-xs bg-warning/10 rounded-lg px-3 py-2">
           ⚠️ Quantidade maior que o estoque atual ({produto.estoque_atual.toFixed(1)}{produto.unidade_padrao})
         </p>
       )}
@@ -97,15 +97,15 @@ export function BaixaEstoque({ produtos, onSalvo }: BaixaEstoqueProps) {
           value={observacao}
           onChange={e => setObservacao(e.target.value)}
           placeholder="Ex: usado no buffet de hoje"
-          className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         />
       </div>
 
       {sucesso && (
-        <p className="text-green-400 text-xs bg-green-400/10 rounded-lg px-3 py-2">✓ Baixa registrada</p>
+        <p className="text-success text-xs bg-success/10 rounded-lg px-3 py-2">✓ Baixa registrada</p>
       )}
       {erro && (
-        <p className="text-red-400 text-xs bg-red-400/10 rounded-lg px-3 py-2">{erro}</p>
+        <p className="text-danger text-xs bg-danger/10 rounded-lg px-3 py-2">{erro}</p>
       )}
 
       <Button

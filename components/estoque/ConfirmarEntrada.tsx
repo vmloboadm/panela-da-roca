@@ -104,7 +104,7 @@ export function ConfirmarEntrada({
 
   if (resultado.itens.length === 0) {
     return (
-      <div className="bg-bg-card rounded-xl p-4 flex flex-col gap-3">
+      <div className="bg-white rounded-xl p-4 flex flex-col gap-3">
         <p className="text-text-muted text-sm">
           🤔 Não foi possível extrair itens desta imagem.
         </p>
@@ -114,7 +114,7 @@ export function ConfirmarEntrada({
   }
 
   return (
-    <div className="bg-bg-card rounded-xl p-4 flex flex-col gap-4">
+    <div className="bg-white rounded-xl p-4 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <p className="text-text-primary font-bold text-sm">
@@ -131,7 +131,7 @@ export function ConfirmarEntrada({
         <select
           value={fornecedorId}
           onChange={e => setFornecedorId(e.target.value)}
-          className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         >
           <option value="">— Sem fornecedor —</option>
           {fornecedores.map(f => (
@@ -143,7 +143,7 @@ export function ConfirmarEntrada({
       {/* Itens */}
       <div className="flex flex-col gap-3">
         {itens.map((item, i) => (
-          <div key={i} className="border border-border rounded-xl p-3 flex flex-col gap-2 bg-bg-base">
+          <div key={i} className="border border-border rounded-xl p-3 flex flex-col gap-2 bg-white">
             <p className="text-text-muted text-xs font-semibold">Extraído: &quot;{item.nome_original}&quot;</p>
 
             <div className="flex flex-col gap-1">
@@ -152,8 +152,8 @@ export function ConfirmarEntrada({
                 value={item.produto_id}
                 onChange={e => atualizarItem(i, 'produto_id', e.target.value)}
                 className={[
-                  'bg-bg-card border rounded-lg px-3 py-2 text-text-primary text-sm',
-                  !item.produto_id ? 'border-amber-500/50' : 'border-border',
+                  'bg-white border rounded-lg px-3 py-2 text-text-primary text-sm',
+                  !item.produto_id ? 'border-warning/50' : 'border-border',
                 ].join(' ')}
               >
                 <option value="">— Selecione o produto —</option>
@@ -171,7 +171,7 @@ export function ConfirmarEntrada({
                   value={item.quantidade}
                   onChange={e => atualizarItem(i, 'quantidade', e.target.value)}
                   placeholder="0"
-                  className="bg-bg-card border border-border rounded px-2 py-1.5 text-text-primary text-sm"
+                  className="bg-white border border-border rounded px-2 py-1.5 text-text-primary text-sm"
                 />
               </div>
               <div className="flex flex-col gap-1 w-16">
@@ -180,7 +180,7 @@ export function ConfirmarEntrada({
                   type="text"
                   value={item.unidade}
                   onChange={e => atualizarItem(i, 'unidade', e.target.value)}
-                  className="bg-bg-card border border-border rounded px-2 py-1.5 text-text-primary text-sm"
+                  className="bg-white border border-border rounded px-2 py-1.5 text-text-primary text-sm"
                 />
               </div>
               <div className="flex flex-col gap-1 flex-1">
@@ -190,7 +190,7 @@ export function ConfirmarEntrada({
                   value={item.preco_unitario}
                   onChange={e => atualizarItem(i, 'preco_unitario', e.target.value)}
                   placeholder="0,00"
-                  className="bg-bg-card border border-border rounded px-2 py-1.5 text-text-primary text-sm"
+                  className="bg-white border border-border rounded px-2 py-1.5 text-text-primary text-sm"
                 />
               </div>
             </div>
@@ -205,11 +205,11 @@ export function ConfirmarEntrada({
       </div>
 
       {erro && (
-        <p className="text-red-400 text-xs bg-red-400/10 rounded-lg px-3 py-2">{erro}</p>
+        <p className="text-danger text-xs bg-danger/10 rounded-lg px-3 py-2">{erro}</p>
       )}
 
       {itensMapeados.length < itens.length && (
-        <p className="text-amber-400 text-xs bg-amber-400/10 rounded-lg px-3 py-2">
+        <p className="text-warning text-xs bg-warning/10 rounded-lg px-3 py-2">
           ⚠️ {itens.length - itensMapeados.length} {itens.length - itensMapeados.length === 1 ? 'item sem produto mapeado' : 'itens sem produto mapeado'} — não serão salvos.
         </p>
       )}

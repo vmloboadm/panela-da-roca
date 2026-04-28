@@ -81,7 +81,7 @@ export function ConsultaIA({ produtos }: ConsultaIAProps) {
           onChange={e => setPergunta(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !consultando && consultar()}
           placeholder="Faça qualquer pergunta sobre o estoque..."
-          className="flex-1 bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none"
+          className="flex-1 bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none"
           disabled={consultando}
         />
         <Button
@@ -95,13 +95,13 @@ export function ConsultaIA({ produtos }: ConsultaIAProps) {
 
       {/* Resposta */}
       {consultando && (
-        <div className="bg-bg-base border border-border rounded-xl p-4">
+        <div className="bg-white border border-border rounded-xl p-4">
           <p className="text-text-muted text-sm animate-pulse">🤖 Analisando estoque...</p>
         </div>
       )}
 
       {resposta && (
-        <div className="bg-bg-base border border-brand/30 rounded-xl p-4 flex flex-col gap-2">
+        <div className="bg-white border border-brand/30 rounded-xl p-4 flex flex-col gap-2">
           <p className="text-brand text-xs font-bold">🤖 Assistente de Estoque</p>
           <p className="text-text-primary text-sm leading-relaxed whitespace-pre-wrap">{resposta}</p>
           <button
@@ -114,7 +114,7 @@ export function ConsultaIA({ produtos }: ConsultaIAProps) {
       )}
 
       {erro && (
-        <p className="text-red-400 text-xs bg-red-400/10 rounded-lg px-3 py-2">{erro}</p>
+        <p className="text-danger text-xs bg-danger/10 rounded-lg px-3 py-2">{erro}</p>
       )}
 
       <p className="text-text-faint text-[11px] text-center">

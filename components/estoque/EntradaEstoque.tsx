@@ -99,7 +99,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => setModo('foto')}
-            className="border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center gap-2 hover:border-border-light transition-colors"
+            className="border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center gap-2 hover:border-brand transition-colors"
           >
             <span className="text-3xl">📷</span>
             <p className="text-text-primary text-sm font-bold">Via Foto</p>
@@ -107,7 +107,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
           </button>
           <button
             onClick={() => setModo('manual')}
-            className="border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center gap-2 hover:border-border-light transition-colors"
+            className="border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center gap-2 hover:border-brand transition-colors"
           >
             <span className="text-3xl">✏️</span>
             <p className="text-text-primary text-sm font-bold">Manual</p>
@@ -146,7 +146,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
             <select
               value={form.produto_id}
               onChange={e => setFormField('produto_id', e.target.value)}
-              className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+              className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
             >
               <option value="">— Selecione o produto —</option>
               {produtos.filter(p => p.ativo).map(p => (
@@ -163,7 +163,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
                 value={form.quantidade}
                 onChange={e => setFormField('quantidade', e.target.value)}
                 placeholder="0"
-                className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+                className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
               />
             </div>
             <div className="flex flex-col gap-1 w-20">
@@ -173,7 +173,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
                 value={form.unidade}
                 onChange={e => setFormField('unidade', e.target.value)}
                 placeholder="kg"
-                className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+                className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
               />
             </div>
           </div>
@@ -185,7 +185,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
               value={form.preco_unitario}
               onChange={e => setFormField('preco_unitario', e.target.value)}
               placeholder="0,00"
-              className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+              className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
             />
           </div>
 
@@ -194,7 +194,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
             <select
               value={form.fornecedor_id}
               onChange={e => setFormField('fornecedor_id', e.target.value)}
-              className="bg-bg-base border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+              className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
             >
               <option value="">— Sem fornecedor —</option>
               {fornecedores.filter(f => f.ativo).map(f => (
@@ -204,12 +204,12 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
           </div>
 
           {sucessoManual && (
-            <p className="text-green-400 text-xs bg-green-400/10 rounded-lg px-3 py-2">
+            <p className="text-success text-xs bg-success/10 rounded-lg px-3 py-2">
               ✓ Entrada registrada com sucesso
             </p>
           )}
           {erroManual && (
-            <p className="text-red-400 text-xs bg-red-400/10 rounded-lg px-3 py-2">{erroManual}</p>
+            <p className="text-danger text-xs bg-danger/10 rounded-lg px-3 py-2">{erroManual}</p>
           )}
 
           <Button
