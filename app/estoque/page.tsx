@@ -77,7 +77,10 @@ export default function EstoquePage() {
   )
 
   // Config do filtro atual
-  const catConfig: CategoriaConfig | null = catFiltro ? (CATEGORIAS.find(c => c.id === catFiltro) ?? null) : null
+  const catConfig = useMemo(
+    () => catFiltro ? (CATEGORIAS.find(c => c.id === catFiltro) ?? null) : null,
+    [catFiltro]
+  )
 
   // Produtos filtrados pelo search + categoria + subcategoria
   const produtosFiltrados = useMemo(() => {
