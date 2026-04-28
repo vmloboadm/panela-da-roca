@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header } from '@/components/layout/Header'
-import { Nav }    from '@/components/layout/Nav'
+import { Header }    from '@/components/layout/Header'
+import { BottomNav } from '@/components/layout/BottomNav'
 
 export const metadata: Metadata = {
   title: 'Panela da Roça — Sistema Inteligente',
@@ -10,18 +10,18 @@ export const metadata: Metadata = {
 }
 
 export const viewport = {
-  themeColor: '#0f1117',
+  themeColor: '#FFF8F0',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className="bg-bg-page">
         <Header />
-        <Nav />
-        <main className="px-6 py-[22px] max-w-[1100px] mx-auto">
+        <main className="px-4 py-4 max-w-[1100px] mx-auto pb-20">
           {children}
         </main>
+        <BottomNav />
       </body>
     </html>
   )
