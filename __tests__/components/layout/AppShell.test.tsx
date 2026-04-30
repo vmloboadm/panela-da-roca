@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { AppShell } from '@/components/layout/AppShell'
 
 jest.mock('next/navigation', () => ({ usePathname: () => '/' }))
@@ -16,5 +16,12 @@ describe('AppShell', () => {
   it('renderiza o Header', () => {
     render(<AppShell><span /></AppShell>)
     expect(screen.getByRole('banner')).toBeInTheDocument()
+  })
+
+  it('abre a sidebar ao clicar no botão de menu', () => {
+    render(<AppShell><span /></AppShell>)
+    expect(screen.queryByRole('complementary')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /abrir menu/i }))
+    expect(screen.getByRole('complementary')).toBeInTheDocument()
   })
 })

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { AppShell } from '@/components/layout/AppShell'
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
 }
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: '#FFF8F0',
 }
 
