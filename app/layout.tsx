@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header }    from '@/components/layout/Header'
-import { BottomNav } from '@/components/layout/BottomNav'
+import { AppShell } from '@/components/layout/AppShell'
 
 export const metadata: Metadata = {
   title: 'Panela da Roça — Sistema Inteligente',
@@ -17,11 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="bg-bg-page">
-        <Header />
-        <main className="px-4 py-4 max-w-[1100px] mx-auto pb-20">
-          {children}
-        </main>
-        <BottomNav />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   )
