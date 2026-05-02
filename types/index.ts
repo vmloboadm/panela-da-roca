@@ -208,6 +208,7 @@ export const CONFIGURACOES_PADRAO: Configuracoes = {
   alerta_validade_dias_antecedencia: 3,
   alerta_preco_variacao_percentual: 10,
   alerta_compra_acima_media_percentual: 50,
+  meta_estoque_valor: 2000,
 }
 
 // ── Leitura IA Universal ──────────────────────────────────────────
