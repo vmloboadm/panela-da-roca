@@ -33,4 +33,12 @@ describe('getSaudacao', () => {
     const segunda = makeDate(10, 1)
     expect(getSaudacao(segunda).extra).toBeUndefined()
   })
+
+  it('hora exata 12h é "Boa tarde"', () => {
+    expect(getSaudacao(makeDate(12, 1)).texto).toBe('Boa tarde')
+  })
+
+  it('hora exata 18h é "Boa noite"', () => {
+    expect(getSaudacao(makeDate(18, 1)).texto).toBe('Boa noite')
+  })
 })
