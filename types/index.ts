@@ -194,6 +194,7 @@ export interface Configuracoes {
   alerta_validade_dias_antecedencia: number
   alerta_preco_variacao_percentual: number
   alerta_compra_acima_media_percentual: number
+  meta_estoque_valor?: number
 }
 
 export const CONFIGURACOES_PADRAO: Configuracoes = {
