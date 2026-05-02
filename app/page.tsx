@@ -18,17 +18,24 @@ export default function DashboardPage() {
   const [produtos,     setProdutos]     = useState<Produto[]>([])
   const [config,       setConfig]       = useState<ConfigGeral | null>(null)
   const [carregando,   setCarregando]   = useState(true)
+  const [erro,         setErro]         = useState<string | null>(null)
 
   useEffect(() => {
     async function init() {
-      await seedIfEmpty()
-      const [prods, cfg] = await Promise.all([
-        getProdutos(),
-        getDocument<ConfigGeral>('configuracoes', 'geral'),
-      ])
-      setProdutos(prods)
-      setConfig(cfg)
-      setCarregando(false)
+      try {
+        await seedIfEmpty()
+        const [prods, cfg] = await Promise.all([
+          getProdutos(),
+          getDocument<ConfigGeral>('configuracoes', 'geral'),
+        ])
+        setProdutos(prods)
+        setConfig(cfg)
+      } catch (e) {
+        console.error('[DashboardPage] init falhou', e)
+        setErro('Não foi possível carregar o painel. Tente novamente.')
+      } finally {
+        setCarregando(false)
+      }
     }
     init()
   }, [])
@@ -44,6 +51,16 @@ export default function DashboardPage() {
     () => ativos.filter(p => p.estoque_atual < p.estoque_minimo),
     [ativos]
   )
+
+  if (erro) {
+    return (
+      <div className="fadein flex flex-col gap-3">
+        <div className="bg-white rounded-xl shadow-card p-4 text-center text-text-muted">
+          {erro}
+        </div>
+      </div>
+    )
+  }
 
   if (carregando) {
     return (
