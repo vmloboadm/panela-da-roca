@@ -10,13 +10,12 @@ import { BaixaEstoque }             from '@/components/estoque/BaixaEstoque'
 import { RegistroPerda }            from '@/components/estoque/RegistroPerda'
 import { ChatEstoque }              from '@/components/estoque/ChatEstoque'
 import { DonutChart, DonutSegmento } from '@/components/estoque/DonutChart'
-import { Produto, Fornecedor }      from '@/types'
+import { Produto, Fornecedor, Configuracoes } from '@/types'
 import { CATEGORIAS, CategoriaConfig } from '@/lib/categorias'
 import { getProdutos }              from '@/lib/services/estoque'
 import { getFornecedores }          from '@/lib/services/fornecedores'
 import { getDocument }              from '@/lib/firestore'
 import { seedIfEmpty }              from '@/lib/seed'
-import { fmtBRL }                   from '@/utils/calculos'
 import { cn }                       from '@/utils/cn'
 
 type Aba        = 'estoque' | 'chat' | 'entrada' | 'baixa'
@@ -28,8 +27,6 @@ const ABAS: { id: Aba; icon: string; label: string }[] = [
   { id: 'entrada',  icon: '📥', label: 'Entrada'  },
   { id: 'baixa',    icon: '📤', label: 'Baixa'    },
 ]
-
-interface ConfigGeral { meta_estoque_valor?: number }
 
 export default function EstoquePage() {
   const [aba,           setAba]           = useState<Aba>('estoque')
@@ -49,16 +46,21 @@ export default function EstoquePage() {
 
   useEffect(() => {
     async function init() {
-      await seedIfEmpty()
-      const [prods, forn, cfg] = await Promise.all([
-        getProdutos(),
-        getFornecedores(),
-        getDocument<ConfigGeral>('configuracoes', 'geral'),
-      ])
-      setProdutos(prods)
-      setFornecedores(forn)
-      if (cfg?.meta_estoque_valor) setMetaEstoque(cfg.meta_estoque_valor)
-      setCarregando(false)
+      try {
+        await seedIfEmpty()
+        const [prods, forn, cfg] = await Promise.all([
+          getProdutos(),
+          getFornecedores(),
+          getDocument<Pick<Configuracoes, 'meta_estoque_valor'>>('configuracoes', 'geral'),
+        ])
+        setProdutos(prods)
+        setFornecedores(forn)
+        if (cfg?.meta_estoque_valor) setMetaEstoque(cfg.meta_estoque_valor)
+      } catch (err) {
+        console.error('Erro ao carregar estoque:', err)
+      } finally {
+        setCarregando(false)
+      }
     }
     init()
   }, [])
