@@ -1,46 +1,55 @@
 'use client'
-
 import { CategoriaConfig } from '@/lib/categorias'
-import { fmtBRL } from '@/utils/calculos'
+import { fmtBRL }          from '@/utils/calculos'
 
 interface CategoriaCardProps {
-  config: CategoriaConfig
+  config:        CategoriaConfig
   totalProdutos: number
-  alertas: number
-  valorTotal: number
-  onClick: () => void
+  alertas:       number
+  valorTotal:    number
+  onClick:       () => void
 }
 
-export function CategoriaCard({ config, totalProdutos, alertas, valorTotal, onClick }: CategoriaCardProps) {
+export function CategoriaCard({
+  config, totalProdutos, alertas, valorTotal, onClick,
+}: CategoriaCardProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full text-left rounded-xl p-3 bg-white shadow-card border-l-4 transition-all hover:shadow-elevated active:scale-[0.98]"
+      className="w-full text-left rounded-xl p-3 bg-white shadow-elevated border-l-4 transition-all hover:shadow-elevated active:scale-[0.98]"
       style={{ borderLeftColor: config.cor }}
     >
-      <div className="flex items-start justify-between gap-2">
+      {/* Topo: ícone + nome + badge */}
+      <div className="flex items-start justify-between gap-2 mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-2xl leading-none">{config.icon}</span>
+          <span className="text-3xl leading-none">{config.icon}</span>
           <div>
             <p className="text-text-primary font-bold text-[13px] leading-tight">{config.nome}</p>
-            <p className="text-text-faint text-[10px]">{totalProdutos} produto{totalProdutos !== 1 ? 's' : ''}</p>
+            <p className="text-text-faint text-[10px]">
+              {totalProdutos} produto{totalProdutos !== 1 ? 's' : ''}
+            </p>
           </div>
         </div>
 
-        <div className="flex flex-col items-end gap-1">
-          {alertas > 0 && (
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-warning/10 text-warning">
-              ⚠️ {alertas}
+        <div className="flex flex-col items-end gap-1 shrink-0">
+          {alertas > 0 ? (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-warning/15 text-warning">
+              ⚠ {alertas} alerta{alertas > 1 ? 's' : ''}
+            </span>
+          ) : (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-success/10 text-success">
+              ✓ ok
             </span>
           )}
           {valorTotal > 0 && (
-            <span className="text-[11px] text-text-muted font-medium">{fmtBRL(valorTotal)}</span>
+            <span className="text-sm font-bold text-text-primary">{fmtBRL(valorTotal)}</span>
           )}
         </div>
       </div>
 
+      {/* Barra de progresso — h-2 (8px) */}
       {totalProdutos > 0 && (
-        <div className="mt-2 h-1.5 bg-border rounded-full overflow-hidden">
+        <div className="h-2 bg-border rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all"
             style={{
