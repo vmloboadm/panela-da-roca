@@ -20,7 +20,7 @@ export function Header() {
   return (
     <header
       role="banner"
-      className="bg-white border-b border-border px-4 h-14 flex items-center gap-3 shadow-sm sticky top-0 z-40"
+      className="bg-bg-card border-b border-border px-4 h-14 flex items-center gap-3 shadow-card sticky top-0 z-40"
     >
       <Image
         src="/logo.png"
@@ -33,20 +33,20 @@ export function Header() {
 
       <div className="flex items-center gap-0.5">
         <button
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-page text-text-muted text-lg transition-colors"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-hover text-text-muted text-lg transition-colors"
           aria-label="Chat IA"
         >
           🤖
         </button>
         <button
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-page text-text-muted text-lg transition-colors"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-hover text-text-muted text-lg transition-colors"
           aria-label="Alertas"
         >
           🔔
         </button>
         <button
           onClick={openSidebar}
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-page text-text-muted transition-colors"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-hover text-text-muted transition-colors"
           aria-label="Abrir menu"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">

@@ -14,7 +14,7 @@ export function GraficoSemanal({ dados, loading }: GraficoSemanalProps) {
   const max = dados.length > 0 ? Math.max(...dados, 1) : 1
 
   return (
-    <div className="bg-white rounded-xl shadow-card p-4">
+    <div className="bg-bg-card rounded-xl shadow-card p-4">
       <p className="text-sm font-bold text-text-secondary mb-3">📈 Receita — 7 dias</p>
       <div className="flex items-end gap-1.5 h-16">
         {loading
@@ -38,7 +38,7 @@ export function GraficoSemanal({ dados, loading }: GraficoSemanalProps) {
                     ].join(' ')}
                     style={{ height: `${pct}%` }}
                   />
-                  <span className="text-[8px] text-text-faint leading-none">{labels[i]}</span>
+                  <span className="text-[8px] text-text-muted leading-none">{labels[i]}</span>
                 </div>
               )
             })

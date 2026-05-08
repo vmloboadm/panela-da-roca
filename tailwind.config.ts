@@ -8,51 +8,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          page:  '#FFF8F0',
-          card:  '#FFFFFF',
-          hover: '#FFF3E8',
-        },
-        border: {
-          DEFAULT: '#F0E6D3',
-          focus:   '#C2410C',
-        },
-        text: {
-          primary:   '#1C0A00',
-          secondary: '#78350F',
-          muted:     '#92400E',
-          faint:     '#C4884A',
-        },
-        brand: {
-          DEFAULT: '#C2410C',
-          dark:    '#7C2D12',
-          hover:   '#9A3412',
-          light:   '#FED7AA',
-        },
-        accent: {
-          DEFAULT: '#D97706',
-        },
-        success: {
-          DEFAULT: '#15803D',
-          light:   '#86efac',
-          bg:      'rgba(21,128,61,0.07)',
-        },
-        danger: {
-          DEFAULT: '#DC2626',
-          light:   '#fca5a5',
-        },
-        warning: {
-          DEFAULT: '#D97706',
-          light:   '#fbbf24',
-        },
-        info: {
-          DEFAULT: '#3b82f6',
-          light:   '#60a5fa',
-        },
+        brand:            'hsl(var(--brand) / <alpha-value>)',
+        'brand-hover':    'hsl(var(--brand-hover) / <alpha-value>)',
+        'bg-base':        'hsl(var(--bg-base) / <alpha-value>)',
+        'bg-card':        'hsl(var(--bg-card) / <alpha-value>)',
+        'bg-hover':       'hsl(var(--bg-hover) / <alpha-value>)',
+        'text-primary':   'hsl(var(--text-primary) / <alpha-value>)',
+        'text-secondary': 'hsl(var(--text-secondary) / <alpha-value>)',
+        'text-muted':     'hsl(var(--text-muted) / <alpha-value>)',
+        border:           'hsl(var(--border) / <alpha-value>)',
+        success:          'hsl(var(--success) / <alpha-value>)',
+        warning:          'hsl(var(--warning) / <alpha-value>)',
+        danger:           'hsl(var(--danger) / <alpha-value>)',
       },
       boxShadow: {
-        card:     '0 1px 4px rgba(120,53,15,0.10)',
-        elevated: '0 4px 16px rgba(120,53,15,0.15)',
+        card:     '0 1px 3px hsl(0 0% 0% / 0.4)',
+        elevated: '0 4px 12px hsl(0 0% 0% / 0.5)',
+      },
+      borderRadius: {
+        xl:  '0.75rem',
+        '2xl': '1rem',
       },
       fontFamily: {
         sans: ['DM Sans', 'Segoe UI', 'sans-serif'],

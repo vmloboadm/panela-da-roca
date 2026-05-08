@@ -41,9 +41,6 @@ interface LeituraRequest {
   contextoAdicional?: string   // ex: "Fornecedor: Assaí Atacadista"
 }
 
-export const config = {
-  api: { bodyParser: { sizeLimit: '15mb' } },
-}
 
 const ALLOWED_MIME_TYPES = new Set([
   'image/jpeg', 'image/png', 'image/webp', 'image/heic',

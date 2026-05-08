@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFF8F0',
+  themeColor: '#111318',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-bg-page">
+      <body className="bg-bg-base text-text-primary min-h-screen">
         <AppShell>{children}</AppShell>
       </body>
     </html>
