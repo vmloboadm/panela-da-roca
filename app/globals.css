@@ -19,11 +19,6 @@
   --danger:         0 84% 60%;
 }
 
-body {
-  background-color: hsl(var(--bg-base));
-  color: hsl(var(--text-primary));
-}
-
 * {
   box-sizing: border-box;
   margin: 0;

@@ -25,10 +25,6 @@ const config: Config = {
         card:     '0 1px 3px hsl(0 0% 0% / 0.4)',
         elevated: '0 4px 12px hsl(0 0% 0% / 0.5)',
       },
-      borderRadius: {
-        xl:  '0.75rem',
-        '2xl': '1rem',
-      },
       fontFamily: {
         sans: ['DM Sans', 'Segoe UI', 'sans-serif'],
         mono: ['monospace'],
