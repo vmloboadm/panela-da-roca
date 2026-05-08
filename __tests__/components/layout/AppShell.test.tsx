@@ -18,10 +18,17 @@ describe('AppShell', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument()
   })
 
-  it('abre a sidebar ao clicar no botão de menu', () => {
+  it('renderiza a sidebar com links de navegação', () => {
     render(<AppShell><span /></AppShell>)
-    expect(screen.queryByRole('complementary')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /abrir menu/i }))
     expect(screen.getByRole('complementary')).toBeInTheDocument()
+    expect(screen.getByText('Estoque')).toBeInTheDocument()
+    expect(screen.getByText('Fornecedores')).toBeInTheDocument()
+  })
+
+  it('botão recolher alterna o aria-label da sidebar', () => {
+    render(<AppShell><span /></AppShell>)
+    const collapseBtn = screen.getByLabelText('Recolher menu')
+    fireEvent.click(collapseBtn)
+    expect(screen.getByLabelText('Expandir menu')).toBeInTheDocument()
   })
 })

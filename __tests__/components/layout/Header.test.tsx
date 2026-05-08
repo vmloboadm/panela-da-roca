@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { SidebarProvider } from '@/lib/context/sidebar-context'
+import { SidebarProvider } from '@/contexts/sidebar-context'
 import { Header } from '@/components/layout/Header'
 
 jest.mock('next/navigation', () => ({ usePathname: () => '/estoque' }))
@@ -24,7 +24,7 @@ describe('Header', () => {
     expect(header.className).toContain('h-14')
   })
 
-  it('botão de menu chama openSidebar', () => {
+  it('botão de menu chama toggleCollapse', () => {
     render(<Wrapper />)
     const menuBtn = screen.getByLabelText('Abrir menu')
     expect(menuBtn).toBeInTheDocument()

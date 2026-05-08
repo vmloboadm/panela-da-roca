@@ -1,96 +1,81 @@
 'use client'
-import { useEffect } from 'react'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSidebar } from '@/contexts/sidebar-context'
 import { cn } from '@/utils/cn'
-import { useSidebar } from '@/lib/context/sidebar-context'
 
-const LINKS = [
-  { href: '/',             icon: '📊', label: 'Dashboard' },
-  { href: '/estoque',      icon: '📦', label: 'Estoque' },
-  { href: '/compras',      icon: '🛒', label: 'Compras',           soon: true },
-  { href: '/fornecedores', icon: '🏪', label: 'Fornecedores' },
-  { href: '/precos',       icon: '🔎', label: 'Preços' },
-  { href: '/financeiro',   icon: '💰', label: 'Financeiro' },
-  { href: '/fichas',       icon: '🍽️',  label: 'Fichas Técnicas',  soon: true },
-  { href: '/ia',           icon: '🤖', label: 'IA',                soon: true },
+const NAV_ITEMS = [
+  { href: '/',             icon: '📊', label: 'Dashboard'    },
+  { href: '/estoque',      icon: '📦', label: 'Estoque'      },
+  { href: '/fornecedores', icon: '🏭', label: 'Fornecedores' },
+  { href: '/precos',       icon: '💲', label: 'Preços'       },
+  { href: '/compras',      icon: '🛒', label: 'Compras'      },
+  { href: '/fechamento',   icon: '📅', label: 'Fechamento'   },
+  { href: '/configuracoes',icon: '⚙️', label: 'Config.'      },
 ]
 
 export function Sidebar() {
-  const { isOpen, closeSidebar } = useSidebar()
   const pathname = usePathname()
-
-  // Fecha ao pressionar Esc — cleanup no unmount e quando isOpen muda
-  useEffect(() => {
-    if (!isOpen) return
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') closeSidebar() }
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [isOpen, closeSidebar])
-
-  if (!isOpen) return null
+  const { collapsed, toggleCollapse } = useSidebar()
 
   return (
-    <>
-      {/* Overlay */}
-      <div
-        role="presentation"
-        className="fixed inset-0 z-40 bg-black/40"
-        onClick={closeSidebar}
-      />
-      {/* Drawer */}
-      <aside
-        aria-label="Menu principal"
-        className="fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-elevated flex flex-col"
+    <aside
+      className={cn(
+        'hidden md:flex flex-col fixed top-0 left-0 h-screen z-30',
+        'bg-bg-card border-r border-border shadow-card',
+        'transition-[width] duration-300 ease-in-out overflow-hidden',
+        collapsed ? 'w-14' : 'w-60',
+      )}
+    >
+      {/* Logo area */}
+      <div className={cn(
+        'flex items-center h-14 border-b border-border px-3 gap-2 shrink-0',
+        collapsed && 'justify-center',
+      )}>
+        <span className="text-xl">🍳</span>
+        {!collapsed && (
+          <span className="text-text-primary font-bold text-sm truncate">Panela da Roça</span>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 py-3 flex flex-col gap-1 overflow-y-auto overflow-x-hidden px-2">
+        {NAV_ITEMS.map(item => {
+          const active = pathname === item.href
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              title={collapsed ? item.label : undefined}
+              className={cn(
+                'flex items-center gap-3 rounded-xl px-2 py-2 text-sm transition-colors',
+                active
+                  ? 'bg-brand text-white font-semibold'
+                  : 'text-text-secondary hover:bg-bg-hover hover:text-text-primary',
+                collapsed && 'justify-center px-0',
+              )}
+            >
+              <span className="text-base shrink-0">{item.icon}</span>
+              {!collapsed && <span className="truncate">{item.label}</span>}
+            </Link>
+          )
+        })}
+      </nav>
+
+      {/* Collapse toggle */}
+      <button
+        onClick={toggleCollapse}
+        aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
+        className={cn(
+          'h-10 border-t border-border text-text-muted hover:text-text-primary hover:bg-bg-hover',
+          'flex items-center transition-colors shrink-0',
+          collapsed ? 'justify-center' : 'px-4 gap-2',
+        )}
       >
-        {/* Header do drawer */}
-        <div className="bg-gradient-to-r from-brand to-brand-dark px-5 h-14 flex items-center shrink-0">
-          <span className="text-white font-extrabold text-base">🍳 Panela da Roça</span>
-        </div>
-
-        {/* Links */}
-        <nav className="flex-1 overflow-y-auto py-3">
-          {LINKS.map(link => {
-            const ativo = pathname === link.href
-            return (
-              <Link
-                key={link.href}
-                href={link.soon ? '#' : link.href}
-                onClick={link.soon ? undefined : closeSidebar}
-                aria-disabled={link.soon}
-                className={cn(
-                  'flex items-center gap-3 px-5 py-3 text-sm font-semibold transition-colors',
-                  link.soon
-                    ? 'opacity-40 cursor-default pointer-events-none text-text-faint'
-                    : ativo
-                      ? 'text-brand bg-brand/5 border-r-2 border-brand'
-                      : 'text-text-secondary hover:bg-bg-page hover:text-text-primary'
-                )}
-              >
-                <span className="text-base leading-none">{link.icon}</span>
-                <span className="flex-1">{link.label}</span>
-                {link.soon && (
-                  <span className="text-[9px] bg-border text-text-faint px-1.5 py-0.5 rounded">
-                    em breve
-                  </span>
-                )}
-              </Link>
-            )
-          })}
-        </nav>
-
-        {/* Configurações */}
-        <div className="border-t border-border p-3 shrink-0">
-          <Link
-            href="/configuracoes"
-            onClick={closeSidebar}
-            className="flex items-center gap-3 px-3 py-2 text-sm text-text-faint hover:text-text-muted rounded-lg hover:bg-bg-page transition-colors"
-          >
-            <span>⚙️</span>
-            <span>Configurações</span>
-          </Link>
-        </div>
-      </aside>
-    </>
+        <span className="text-sm">{collapsed ? '→' : '←'}</span>
+        {!collapsed && <span className="text-xs">Recolher</span>}
+      </button>
+    </aside>
   )
 }

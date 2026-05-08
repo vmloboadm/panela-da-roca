@@ -1,43 +1,34 @@
-import { useEffect } from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { SidebarProvider, useSidebar } from '@/lib/context/sidebar-context'
+import { SidebarProvider } from '@/contexts/sidebar-context'
 import { Sidebar } from '@/components/layout/Sidebar'
 
 jest.mock('next/navigation', () => ({ usePathname: () => '/' }))
 
-// Abre o sidebar ao montar — imports no topo, hooks no nível do componente
-function OpenHelper() {
-  const { openSidebar } = useSidebar()
-  useEffect(() => { openSidebar() }, [openSidebar])
-  return null
-}
-
-function Wrapper({ open = false }: { open?: boolean }) {
+function Wrapper() {
   return (
     <SidebarProvider>
-      {open && <OpenHelper />}
       <Sidebar />
     </SidebarProvider>
   )
 }
 
 describe('Sidebar', () => {
-  it('não renderiza quando fechado', () => {
-    render(<Wrapper open={false} />)
-    expect(screen.queryByRole('navigation')).toBeNull()
-  })
-
-  it('renderiza links de navegação quando aberto', () => {
-    render(<Wrapper open={true} />)
+  it('renderiza links de navegação', () => {
+    render(<Wrapper />)
     expect(screen.getByText('Dashboard')).toBeInTheDocument()
     expect(screen.getByText('Estoque')).toBeInTheDocument()
     expect(screen.getByText('Fornecedores')).toBeInTheDocument()
   })
 
-  it('fecha ao clicar no overlay', () => {
-    render(<Wrapper open={true} />)
-    expect(screen.getByRole('navigation')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('presentation'))  // overlay aria-hidden div
-    expect(screen.queryByRole('navigation')).toBeNull()
+  it('renderiza botão de recolher', () => {
+    render(<Wrapper />)
+    expect(screen.getByLabelText('Recolher menu')).toBeInTheDocument()
+  })
+
+  it('botão de recolher alterna o estado ao ser clicado', () => {
+    render(<Wrapper />)
+    const btn = screen.getByLabelText('Recolher menu')
+    fireEvent.click(btn)
+    expect(screen.getByLabelText('Expandir menu')).toBeInTheDocument()
   })
 })

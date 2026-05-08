@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useSidebar } from '@/lib/context/sidebar-context'
+import { useSidebar } from '@/contexts/sidebar-context'
 
 const PAGE_TITLES: Record<string, string> = {
   '/':             'Dashboard',
@@ -14,7 +14,7 @@ const PAGE_TITLES: Record<string, string> = {
 
 export function Header() {
   const pathname  = usePathname()
-  const { openSidebar } = useSidebar()
+  const { toggleCollapse } = useSidebar()
   const title = PAGE_TITLES[pathname] ?? 'Panela da Roça'
 
   return (
@@ -22,6 +22,14 @@ export function Header() {
       role="banner"
       className="bg-bg-card border-b border-border px-4 h-14 flex items-center gap-3 shadow-card sticky top-0 z-40"
     >
+      <button
+        onClick={toggleCollapse}
+        aria-label="Abrir menu"
+        className="md:hidden p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-bg-hover transition-colors"
+      >
+        ☰
+      </button>
+
       <Image
         src="/logo.png"
         alt="Panela da Roça"
@@ -43,15 +51,6 @@ export function Header() {
           aria-label="Alertas"
         >
           🔔
-        </button>
-        <button
-          onClick={openSidebar}
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-bg-hover text-text-muted transition-colors"
-          aria-label="Abrir menu"
-        >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
         </button>
       </div>
     </header>
