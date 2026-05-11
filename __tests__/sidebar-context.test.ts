@@ -12,7 +12,11 @@ const localStorageMock = (() => {
     clear: () => { store = {} },
   }
 })()
-Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+  configurable: true,
+  writable: true,
+})
 
 import React from 'react'
 import { SidebarProvider, useSidebar } from '@/contexts/sidebar-context'

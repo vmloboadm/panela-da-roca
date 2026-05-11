@@ -3,6 +3,7 @@ import './globals.css'
 import { SidebarProvider } from '@/contexts/sidebar-context'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Header } from '@/components/layout/Header'
+import { MainContent } from '@/components/layout/MainContent'
 
 export const metadata: Metadata = {
   title: 'Panela da Roça — Sistema Inteligente',
@@ -21,12 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SidebarProvider>
           <Sidebar />
           {/* Main content shifted right on desktop to account for sidebar */}
-          <div className="md:ml-60 transition-[margin-left] duration-300 ease-in-out">
+          <MainContent>
             <Header />
             <main className="p-4 md:p-6">
               {children}
             </main>
-          </div>
+          </MainContent>
         </SidebarProvider>
       </body>
     </html>

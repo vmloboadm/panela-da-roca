@@ -4,12 +4,14 @@ import { usePathname } from 'next/navigation'
 import { useSidebar } from '@/contexts/sidebar-context'
 
 const PAGE_TITLES: Record<string, string> = {
-  '/':             'Dashboard',
-  '/estoque':      'Estoque',
-  '/fornecedores': 'Fornecedores',
-  '/precos':       'Preços',
-  '/financeiro':   'Financeiro',
-  '/compras':      'Compras',
+  '/':              'Dashboard',
+  '/estoque':       'Estoque',
+  '/fornecedores':  'Fornecedores',
+  '/precos':        'Preços',
+  '/financeiro':    'Financeiro',
+  '/compras':       'Compras',
+  '/fechamento':    'Fechamento',
+  '/configuracoes': 'Configurações',
 }
 
 export function Header() {

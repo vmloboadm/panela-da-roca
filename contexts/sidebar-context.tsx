@@ -16,14 +16,22 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
 
   // Read from localStorage on mount (client only)
   useEffect(() => {
-    const stored = localStorage.getItem(LS_KEY)
-    if (stored === 'true') setCollapsed(true)
+    try {
+      const stored = localStorage.getItem(LS_KEY)
+      if (stored === 'true') setCollapsed(true)
+    } catch {
+      // localStorage unavailable (private browsing restrictions, etc.)
+    }
   }, [])
 
   const toggleCollapse = useCallback(() => {
     setCollapsed(prev => {
       const next = !prev
-      localStorage.setItem(LS_KEY, String(next))
+      try {
+        localStorage.setItem(LS_KEY, String(next))
+      } catch {
+        // ignore
+      }
       return next
     })
   }, [])
