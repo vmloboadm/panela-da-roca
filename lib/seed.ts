@@ -1,9 +1,20 @@
 import { getDocument, setDocument, getCollection, updateDocument } from './firestore'
 import { FORNECEDORES_SEED } from './data/fornecedores'
 import { PRODUTOS_SEED } from './data/produtos'
-import { Produto } from '@/types'
+import { Produto, Representante } from '@/types'
 
-const SEED_VERSION = 2
+const SEED_VERSION = 3
+
+const REPRESENTANTES_SEED: Omit<Representante, 'id'>[] = [
+  { empresa: 'Minerva Foods',          ativo: true },
+  { empresa: 'BRF (Sadia/Perdigão)',   ativo: true },
+  { empresa: 'Arcofoods',              ativo: true },
+  { empresa: 'JBS/Friboi',             ativo: true },
+  { empresa: 'Aurora Alimentos',       ativo: true },
+  { empresa: 'Seara',                  ativo: true },
+  { empresa: 'Marfrig',                ativo: true },
+  { empresa: 'Rezende',                ativo: true },
+]
 
 // Maps old category names (v1) → new categoria + subcategoria (v2)
 const MAPA_V1_V2: Record<string, { categoria: string; subcategoria: string }> = {
@@ -33,10 +44,24 @@ export async function seedIfEmpty(): Promise<void> {
     await migrarV1ParaV2()
     await updateDocument('_meta', 'seed', { version: 2 })
   }
+
+  // Migration: v2 → v3 (seed representantes)
+  if (currentVersion < 3) {
+    await runMigrations()
+  }
 }
 
-async function runFullSeed(): Promise<void> {
-  console.log('[seed] Populando Firebase com dados iniciais (v2)...')
+export async function runMigrations(): Promise<void> {
+  const meta = await getDocument<{ version: number }>('_meta', 'seed')
+  const currentVersion = meta?.version ?? 0
+  if (currentVersion < 3) {
+    await seedRepresentantesV3()
+    await updateDocument('_meta', 'seed', { version: 3 })
+  }
+}
+
+export async function runFullSeed(): Promise<void> {
+  console.log('[seed] Populando Firebase com dados iniciais (v3)...')
 
   for (const fornecedor of FORNECEDORES_SEED) {
     const { id, ...data } = fornecedor
@@ -71,7 +96,16 @@ async function runFullSeed(): Promise<void> {
     meta_estoque_valor: 2000,
   })
 
+  await seedRepresentantesV3()
+
   console.log('[seed] Dados iniciais populados com sucesso.')
+}
+
+async function seedRepresentantesV3(): Promise<void> {
+  for (const rep of REPRESENTANTES_SEED) {
+    const id = rep.empresa.toLowerCase().replace(/[^a-z0-9]/g, '_')
+    await setDocument('representantes', id, rep)
+  }
 }
 
 async function migrarV1ParaV2(): Promise<void> {

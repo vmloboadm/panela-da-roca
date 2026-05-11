@@ -130,8 +130,8 @@ export interface RegistroDiario {
 
 export interface Representante {
   id: string
-  nome: string
   empresa: string
+  nome?: string
   telefone?: string
   whatsapp?: string
   email?: string
