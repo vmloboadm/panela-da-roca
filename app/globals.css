@@ -34,7 +34,10 @@ body {
 ::-webkit-scrollbar-track { background: hsl(var(--bg-base)); }
 ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
 
-select option { background: #FFFFFF; }
+select option {
+  background: hsl(var(--bg-card));
+  color: hsl(var(--text-primary));
+}
 
 @keyframes fadein {
   from { opacity: 0; transform: translateY(8px); }

@@ -20,6 +20,17 @@ const config: Config = {
         success:          'hsl(var(--success) / <alpha-value>)',
         warning:          'hsl(var(--warning) / <alpha-value>)',
         danger:           'hsl(var(--danger) / <alpha-value>)',
+        white:            '#ffffff',
+        // Backwards-compat aliases — keep until all files are migrated
+        'brand-dark':       'hsl(var(--brand-hover) / <alpha-value>)',
+        'bg-page':          'hsl(var(--bg-base)   / <alpha-value>)',
+        'bg-bg-page':       'hsl(var(--bg-base)   / <alpha-value>)',
+        'text-faint':       'hsl(var(--text-muted) / <alpha-value>)',
+        'text-text-faint':  'hsl(var(--text-muted) / <alpha-value>)',
+        'text-text-muted':  'hsl(var(--text-muted) / <alpha-value>)',
+        'border-focus':        'hsl(var(--brand)  / <alpha-value>)',
+        'border-border':       'hsl(var(--border) / <alpha-value>)',
+        'border-border-focus': 'hsl(var(--brand)  / <alpha-value>)',
       },
       boxShadow: {
         card:     '0 1px 3px hsl(0 0% 0% / 0.4)',
