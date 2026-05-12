@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Fornecedor, TipoFornecedor, Representante } from '@/types'
 import { seedIfEmpty } from '@/lib/seed'
 import { getFornecedores } from '@/lib/services/fornecedores'
@@ -85,6 +85,11 @@ export default function FornecedoresPage() {
     filtro === 'todos'
       ? fornecedores
       : fornecedores.filter(f => f.tipo === filtro)
+
+  const representantesFiltrados = useMemo(
+    () => representantes.filter(r => filtroAtivo === null || r.ativo === filtroAtivo),
+    [representantes, filtroAtivo]
+  )
 
   return (
     <div className="fadein max-w-7xl mx-auto px-4 py-6 flex flex-col gap-6">
@@ -201,8 +206,7 @@ export default function FornecedoresPage() {
           {/* Card grid */}
           {!loadingRep && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {representantes
-                .filter(r => filtroAtivo === null || r.ativo === filtroAtivo)
+              {representantesFiltrados
                 .map(rep => (
                   <div
                     key={rep.id}
@@ -233,7 +237,7 @@ export default function FornecedoresPage() {
                     </div>
                   </div>
                 ))}
-              {representantes.filter(r => filtroAtivo === null || r.ativo === filtroAtivo).length === 0 && !loadingRep && (
+              {representantesFiltrados.length === 0 && !loadingRep && (
                 <p className="text-text-muted text-sm col-span-full">Nenhum representante encontrado.</p>
               )}
             </div>

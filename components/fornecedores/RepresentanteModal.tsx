@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Representante } from '@/types'
 import { createRepresentante, updateRepresentante } from '@/lib/services/representantes'
-import { cn } from '@/utils/cn'
 
 interface RepresentanteModalProps {
   representante: Representante | null  // null = create mode
@@ -77,6 +76,8 @@ export function RepresentanteModal({ representante, onClose, onSaved }: Represen
       await updateRepresentante(representante.id, { ativo: !representante.ativo })
       onSaved()
       onClose()
+    } catch (e) {
+      setErro('Erro ao arquivar.')
     } finally {
       setSalvando(false)
     }

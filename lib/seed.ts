@@ -70,7 +70,7 @@ export async function runFullSeed(): Promise<void> {
 
   for (const produto of PRODUTOS_SEED) {
     const id = produto.nome.toLowerCase()
-      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .normalize('NFD').replace(/[\u0300-\u036F]/g, '')
       .replace(/[^a-z0-9]/g, '_')
       .replace(/_+/g, '_')
       .replace(/^_|_$/g, '')
@@ -128,7 +128,7 @@ async function migrarV1ParaV2(): Promise<void> {
   const existingIds = new Set(produtos.map(p => p.id))
   for (const produto of PRODUTOS_SEED) {
     const id = produto.nome.toLowerCase()
-      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .normalize('NFD').replace(/[\u0300-\u036F]/g, '')
       .replace(/[^a-z0-9]/g, '_')
       .replace(/_+/g, '_')
       .replace(/^_|_$/g, '')
