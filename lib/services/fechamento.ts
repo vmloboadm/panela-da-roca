@@ -1,4 +1,4 @@
-import { orderBy, limit as fsLimit } from 'firebase/firestore'
+import { orderBy, limit as fsLimit, where } from 'firebase/firestore'
 import { getCollection, getDocument, addDocument, updateDocument } from '@/lib/firestore'
 import { RegistroDiario } from '@/types'
 
@@ -12,8 +12,11 @@ export function getRegistro(id: string): Promise<RegistroDiario | null> {
 }
 
 export async function getRegistroByData(data: string): Promise<RegistroDiario | null> {
-  const todos = await getCollection<RegistroDiario>('registros_diarios')
-  return todos.find(r => r.data === data) ?? null
+  const results = await getCollection<RegistroDiario>('registros_diarios', [
+    where('data', '==', data),
+    fsLimit(1),
+  ])
+  return results[0] ?? null
 }
 
 export function createRegistro(data: Omit<RegistroDiario, 'id'>): Promise<string> {

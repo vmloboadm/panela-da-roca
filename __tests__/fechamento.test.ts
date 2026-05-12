@@ -65,7 +65,7 @@ describe('fechamento service', () => {
   })
 
   it('getRegistroByData returns null when no match', async () => {
-    mockGetCollection.mockResolvedValue([REG_FAKE])
+    mockGetCollection.mockResolvedValue([])
     const reg = await getRegistroByData('2099-01-01')
     expect(reg).toBeNull()
   })

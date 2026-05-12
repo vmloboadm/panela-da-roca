@@ -32,6 +32,9 @@ export default function FechamentoPage() {
   const [loading,      setLoading]      = useState(true)
   const [registroHoje, setRegistroHoje] = useState<RegistroDiario | null>(null)
 
+  // ── Error state ──
+  const [erroCarregar, setErroCarregar] = useState<string | null>(null)
+
   // ── Modal / Form ──
   const [modalAberto, setModalAberto] = useState(false)
   const [passo,       setPasso]       = useState<Passo>(1)
@@ -53,6 +56,7 @@ export default function FechamentoPage() {
 
   // ── Load data ──
   const carregar = useCallback(async () => {
+    setErroCarregar(null)
     setLoading(true)
     try {
       const [regs, cfg, preps, prods, regHoje] = await Promise.all([
@@ -71,6 +75,7 @@ export default function FechamentoPage() {
       setRegistroHoje(regHoje)
     } catch (e) {
       console.error('[Fechamento] carregar falhou', e)
+      setErroCarregar('Não foi possível carregar os dados. Tente novamente.')
     } finally {
       setLoading(false)
     }
@@ -173,6 +178,16 @@ export default function FechamentoPage() {
       <div className="flex flex-col gap-4">
         <div className="h-10 bg-bg-card rounded-xl animate-pulse w-48" />
         <div className="h-48 bg-bg-card rounded-2xl animate-pulse" />
+      </div>
+    )
+  }
+
+  if (erroCarregar) {
+    return (
+      <div className="fadein flex flex-col gap-3">
+        <div className="bg-card rounded-xl shadow-card p-4 text-center text-text-muted">
+          {erroCarregar}
+        </div>
       </div>
     )
   }
