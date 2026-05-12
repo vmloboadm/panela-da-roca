@@ -7,7 +7,8 @@ import { GraficoSemanal }  from '@/components/dashboard/GraficoSemanal'
 import { getProdutos }     from '@/lib/services/estoque'
 import { getDocument }     from '@/lib/firestore'
 import { seedIfEmpty }     from '@/lib/seed'
-import { Produto }         from '@/types'
+import { Produto, RegistroDiario } from '@/types'
+import { getRegistros, getRegistroByData } from '@/lib/services/fechamento'
 
 interface ConfigGeral {
   meta_dia_util: number
@@ -19,17 +20,29 @@ export default function DashboardPage() {
   const [config,       setConfig]       = useState<ConfigGeral | null>(null)
   const [carregando,   setCarregando]   = useState(true)
   const [erro,         setErro]         = useState<string | null>(null)
+  const [registroHoje, setRegistroHoje] = useState<RegistroDiario | null>(null)
+  const [dadosGrafico,  setDadosGrafico]  = useState<number[]>([])
 
   useEffect(() => {
     async function init() {
       try {
         await seedIfEmpty()
-        const [prods, cfg] = await Promise.all([
+        const [prods, cfg, regHoje, regs7d] = await Promise.all([
           getProdutos(),
           getDocument<ConfigGeral>('configuracoes', 'geral'),
+          getRegistroByData(new Date().toISOString().slice(0, 10)),
+          getRegistros(7),
         ])
         setProdutos(prods)
         setConfig(cfg)
+        setRegistroHoje(regHoje)
+
+        // Build 7-day chart array (oldest → newest, today at index 6)
+        const dados = Array.from({ length: 7 }, (_, i) => {
+          const d = new Date(Date.now() - (6 - i) * 86400000).toISOString().slice(0, 10)
+          return regs7d.find((r: RegistroDiario) => r.data === d)?.faturamento_total ?? 0
+        })
+        setDadosGrafico(dados)
       } catch (e) {
         console.error('[DashboardPage] init falhou', e)
         setErro('Não foi possível carregar o painel. Tente novamente.')
@@ -82,11 +95,11 @@ export default function DashboardPage() {
       <SaudacaoHero metaDia={metaDia} />
       <AlertasCriticos produtosAbaixoMinimo={produtosAbaixoMinimo} />
       <KpiStrip
-        faturamento={null}
-        cmv={null}
+        faturamento={registroHoje?.faturamento_total ?? null}
+        cmv={registroHoje?.cmv_percentual ?? null}
         totalAlertas={produtosAbaixoMinimo.length}
       />
-      <GraficoSemanal dados={[]} loading={false} />
+      <GraficoSemanal dados={dadosGrafico} loading={carregando} />
     </div>
   )
 }
