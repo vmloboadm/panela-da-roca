@@ -51,6 +51,13 @@ describe('fechamento service', () => {
     expect(constraints).toHaveLength(2) // orderBy + limit
   })
 
+  it('getRegistro delegates to getDocument', async () => {
+    mockGetDocument.mockResolvedValueOnce({ id: 'abc', data: '2025-01-01', faturamento_total: 500 })
+    const result = await getRegistro('abc')
+    expect(mockGetDocument).toHaveBeenCalledWith('registros_diarios', 'abc')
+    expect(result).toEqual({ id: 'abc', data: '2025-01-01', faturamento_total: 500 })
+  })
+
   it('getRegistroByData returns matching record', async () => {
     mockGetCollection.mockResolvedValue([REG_FAKE])
     const reg = await getRegistroByData('2026-05-07')

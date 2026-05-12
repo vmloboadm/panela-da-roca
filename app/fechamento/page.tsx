@@ -53,21 +53,27 @@ export default function FechamentoPage() {
 
   // ── Load data ──
   const carregar = useCallback(async () => {
-    const [regs, cfg, preps, prods] = await Promise.all([
-      getRegistros(10),
-      getConfiguracoes(),
-      getCollection<Preparacao>('preparacoes'),
-      getCollection<Produto>('produtos'),
-    ])
-    setRegistros(regs)
-    setConfig(cfg)
-    setPreparacoes(preps.filter(p => p.ativo))
-    const map = new Map<string, Produto>()
-    prods.forEach(p => map.set(p.id, p))
-    setProdutosMap(map)
-    const r = await getRegistroByData(hoje())
-    setRegistroHoje(r)
-    setLoading(false)
+    setLoading(true)
+    try {
+      const [regs, cfg, preps, prods, regHoje] = await Promise.all([
+        getRegistros(10),
+        getConfiguracoes(),
+        getCollection<Preparacao>('preparacoes'),
+        getCollection<Produto>('produtos'),
+        getRegistroByData(hoje()),
+      ])
+      setRegistros(regs)
+      setConfig(cfg)
+      setPreparacoes(preps.filter(p => p.ativo))
+      const map = new Map<string, Produto>()
+      prods.forEach(p => map.set(p.id, p))
+      setProdutosMap(map)
+      setRegistroHoje(regHoje)
+    } catch (e) {
+      console.error('[Fechamento] carregar falhou', e)
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => { carregar() }, [carregar])
@@ -413,7 +419,16 @@ export default function FechamentoPage() {
             {/* Navigation buttons */}
             <div className="px-6 py-4 border-t border-border flex gap-2 justify-between">
               <button
-                onClick={() => passo > 1 ? setPasso(p => (p - 1) as Passo) : setModalAberto(false)}
+                onClick={() => {
+                  if (passo > 1) {
+                    setPasso(p => {
+                      if (modo === 'rapido' && p === 4) return 2
+                      return (p - 1) as Passo
+                    })
+                  } else {
+                    setModalAberto(false)
+                  }
+                }}
                 className="px-4 py-2 border border-border rounded-xl text-text-secondary text-sm font-semibold hover:bg-bg-hover transition-colors"
               >
                 {passo === 1 ? 'Cancelar' : '← Voltar'}
