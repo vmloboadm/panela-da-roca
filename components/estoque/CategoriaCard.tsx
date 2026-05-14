@@ -16,7 +16,7 @@ export function CategoriaCard({
   return (
     <button
       onClick={onClick}
-      className="w-full text-left rounded-xl p-3 bg-white shadow-elevated border-l-4 transition-all hover:shadow-elevated active:scale-[0.98]"
+      className="w-full text-left rounded-xl p-3 bg-bg-card shadow-elevated border-l-4 transition-all hover:shadow-elevated active:scale-[0.98]"
       style={{ borderLeftColor: config.cor }}
     >
       {/* Topo: ícone + nome + badge */}

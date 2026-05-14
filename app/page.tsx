@@ -68,8 +68,8 @@ export default function DashboardPage() {
   if (erro) {
     return (
       <div className="fadein flex flex-col gap-3">
-        <div className="bg-white rounded-xl shadow-card p-4 text-center text-text-muted">
-          {erro}
+        <div className="bg-bg-card rounded-xl shadow-card p-4 text-center text-text-muted border border-danger/20">
+          <span className="text-danger mr-2">⚠</span>{erro}
         </div>
       </div>
     )
@@ -79,13 +79,13 @@ export default function DashboardPage() {
     return (
       <div className="fadein flex flex-col gap-3">
         <div className="h-28 bg-border/30 rounded-2xl animate-pulse" />
-        <div className="h-24 bg-white rounded-xl shadow-card animate-pulse" />
+        <div className="h-16 bg-bg-card rounded-xl border border-border animate-pulse" />
         <div className="grid grid-cols-3 gap-2">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-20 bg-white rounded-xl shadow-card animate-pulse" />
+            <div key={i} className="h-20 bg-bg-card rounded-xl border border-border animate-pulse" />
           ))}
         </div>
-        <div className="h-28 bg-white rounded-xl shadow-card animate-pulse" />
+        <div className="h-28 bg-bg-card rounded-xl border border-border animate-pulse" />
       </div>
     )
   }

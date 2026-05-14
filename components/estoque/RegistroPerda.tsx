@@ -59,7 +59,7 @@ export function RegistroPerda({ produtos, onSalvo }: RegistroPerdaProps) {
         <select
           value={produto_id}
           onChange={e => { setProdutoId(e.target.value); setSucesso(false) }}
-          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         >
           <option value="">— Selecione o produto —</option>
           {produtos.filter(p => p.ativo).map(p => (
@@ -77,7 +77,7 @@ export function RegistroPerda({ produtos, onSalvo }: RegistroPerdaProps) {
           value={quantidade}
           onChange={e => setQuantidade(e.target.value)}
           placeholder="0"
-          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         />
       </div>
 

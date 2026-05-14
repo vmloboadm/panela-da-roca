@@ -23,7 +23,7 @@ export function ProdutoEstoqueCard({ produto, onEntrada, onBaixa }: ProdutoEstoq
 
   return (
     <div className={[
-      'bg-white border rounded-xl shadow-card p-3 flex flex-col gap-2 transition-colors',
+      'bg-bg-card border rounded-xl shadow-card p-3 flex flex-col gap-2 transition-colors',
       status === 'CRITICO' ? 'border-red-500/50' : 'border-border',
     ].join(' ')}>
 

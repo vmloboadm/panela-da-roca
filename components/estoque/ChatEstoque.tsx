@@ -200,19 +200,19 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
             )}
 
             {msg.tipo === 'ia_texto' && (
-              <div className="bg-white border border-border rounded-2xl rounded-tl-sm px-3 py-2 max-w-[85%]">
+              <div className="bg-bg-card border border-border rounded-2xl rounded-tl-sm px-3 py-2 max-w-[85%]">
                 <p className="text-[10px] text-brand font-bold mb-1">🤖 Assistente</p>
                 <p className="text-text-primary text-sm leading-relaxed whitespace-pre-wrap">{msg.texto}</p>
               </div>
             )}
 
             {msg.tipo === 'ia_compra' && msg.itens && (
-              <div className="bg-white border border-success/30 rounded-2xl rounded-tl-sm px-3 py-3 w-full max-w-[95%] flex flex-col gap-2">
+              <div className="bg-bg-card border border-success/30 rounded-2xl rounded-tl-sm px-3 py-3 w-full max-w-[95%] flex flex-col gap-2">
                 <p className="text-[10px] text-success font-bold">🛒 Compra detectada — confirme antes de salvar</p>
 
                 {msg.itens.map((item, i) => (
                   <div key={i} className={['rounded-lg px-2.5 py-2 flex items-start justify-between gap-2',
-                    item.produto_id ? 'bg-white' : 'bg-warning/10 border border-warning/20',
+                    item.produto_id ? 'bg-bg-card' : 'bg-warning/10 border border-warning/20',
                   ].join(' ')}>
                     <div className="flex-1 min-w-0">
                       <p className="text-text-primary text-xs font-semibold truncate">{item.produto_nome}</p>
@@ -269,7 +269,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
 
         {processando && (
           <div className="flex justify-start">
-            <div className="bg-white border border-border rounded-2xl rounded-tl-sm px-4 py-3">
+            <div className="bg-bg-card border border-border rounded-2xl rounded-tl-sm px-4 py-3">
               <div className="flex gap-1">
                 <span className="w-1.5 h-1.5 bg-brand rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <span className="w-1.5 h-1.5 bg-brand rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -291,7 +291,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && !processando && enviar(input)}
           placeholder={gravando ? 'Gravando... toque para parar' : 'Comprei hoje... ou faça uma pergunta'}
           disabled={processando || gravando}
-          className="flex-1 bg-white border border-border rounded-xl px-3 py-2.5 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none disabled:opacity-50"
+          className="flex-1 bg-bg-hover border border-border rounded-xl px-3 py-2.5 text-text-primary text-sm placeholder:text-text-faint focus:border-brand outline-none disabled:opacity-50"
         />
 
         {temMicrofone && (
@@ -302,7 +302,7 @@ export function ChatEstoque({ produtos, onEstoqueAtualizado }: ChatEstoqueProps)
               'w-10 h-10 rounded-xl flex items-center justify-center transition-all text-base shrink-0',
               gravando
                 ? 'bg-red-500 text-white animate-pulse'
-                : 'bg-white border border-border text-text-muted hover:border-brand hover:text-brand',
+                : 'bg-bg-hover border border-border text-text-muted hover:border-brand hover:text-brand',
             ].join(' ')}
             title={gravando ? 'Parar gravação' : 'Gravar áudio'}
           >

@@ -15,7 +15,7 @@ export function FornecedorCard({ fornecedor, onEdit }: FornecedorCardProps) {
   return (
     <div
       style={{ borderLeftColor: fornecedor.cor, borderColor: `${fornecedor.cor}33` }}
-      className="bg-white rounded-xl p-[14px] border border-l-4 flex flex-col gap-3 hover:bg-bg-hover transition-colors"
+      className="bg-bg-card rounded-xl p-[14px] border border-l-4 flex flex-col gap-3 hover:bg-bg-hover transition-colors"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-2">

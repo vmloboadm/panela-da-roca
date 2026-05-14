@@ -72,7 +72,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
 
   if (resultado.itens.length === 0) {
     return (
-      <div className="bg-white rounded-xl p-4 flex flex-col gap-3">
+      <div className="bg-bg-card rounded-xl p-4 flex flex-col gap-3">
         <p className="text-text-muted text-sm">
           🤔 Não foi possível extrair preços deste arquivo.
           {resultado.observacao_geral && ` ${resultado.observacao_geral}`}
@@ -83,7 +83,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
   }
 
   return (
-    <div className="bg-white rounded-xl p-4 flex flex-col gap-4">
+    <div className="bg-bg-card rounded-xl p-4 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
@@ -150,7 +150,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
                   step="0.01"
                   value={item.preco_unitario ?? ''}
                   onChange={e => atualizarItem(i, 'preco_unitario', e.target.value ? Number(e.target.value) : null)}
-                  className="w-24 bg-white border border-border rounded px-2 py-1 text-text-primary text-sm"
+                  className="w-24 bg-bg-hover border border-border rounded px-2 py-1 text-text-primary text-sm"
                   placeholder="0,00"
                 />
               </div>
@@ -160,7 +160,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
                   type="text"
                   value={item.unidade}
                   onChange={e => atualizarItem(i, 'unidade', e.target.value)}
-                  className="w-16 bg-white border border-border rounded px-2 py-1 text-text-primary text-sm"
+                  className="w-16 bg-bg-hover border border-border rounded px-2 py-1 text-text-primary text-sm"
                 />
               </div>
               {item.quantidade !== null && (
@@ -170,7 +170,7 @@ export function ResultadoLeitura({ resultado, fornecedores, onSalvar, onDescarta
                     type="number"
                     value={item.quantidade ?? ''}
                     onChange={e => atualizarItem(i, 'quantidade', e.target.value ? Number(e.target.value) : null)}
-                    className="w-16 bg-white border border-border rounded px-2 py-1 text-text-primary text-sm"
+                    className="w-16 bg-bg-hover border border-border rounded px-2 py-1 text-text-primary text-sm"
                   />
                 </div>
               )}

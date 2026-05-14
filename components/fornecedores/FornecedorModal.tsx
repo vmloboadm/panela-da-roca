@@ -131,7 +131,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
       className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
-      <div className="bg-white border border-border rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
+      <div className="bg-bg-card border border-border rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
         {/* Title */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-text-primary font-bold text-[17px]">
@@ -182,7 +182,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
                 type="color"
                 value={form.cor}
                 onChange={e => setField('cor', e.target.value)}
-                className="w-12 h-[42px] rounded-lg border border-border cursor-pointer bg-white"
+                className="w-12 h-[42px] rounded-lg border border-border cursor-pointer bg-bg-hover"
                 title="Escolher cor"
               />
             </div>
@@ -260,7 +260,7 @@ export function FornecedorModal({ fornecedor, onClose, onSaved }: FornecedorModa
               onChange={e => setField('observacoes', e.target.value)}
               rows={3}
               placeholder="Observações opcionais..."
-              className="bg-white border border-border rounded-lg px-[13px] py-[10px] text-text-primary text-[13px] outline-none font-sans w-full focus:border-border-focus transition-colors resize-none"
+              className="bg-bg-hover border border-border rounded-lg px-[13px] py-[10px] text-text-primary text-[13px] outline-none font-sans w-full focus:border-border-focus transition-colors resize-none"
             />
           </div>
 

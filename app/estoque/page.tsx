@@ -140,7 +140,7 @@ export default function EstoquePage() {
       </div>
 
       {/* ── Sub-tabs — sticky abaixo do Header (h-14 = top-14) ── */}
-      <div className="sticky top-14 z-30 -mx-4 bg-white border-b border-border flex shadow-sm">
+      <div className="sticky top-14 z-30 -mx-4 bg-bg-base border-b border-border flex shadow-sm">
         {ABAS.map(a => (
           <button
             key={a.id}
@@ -180,7 +180,7 @@ export default function EstoquePage() {
                 value={busca}
                 onChange={e => { setBusca(e.target.value); setCatFiltro(null); setSubFiltro(null) }}
                 placeholder="Buscar produto..."
-                className="w-full bg-white border border-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-text-primary placeholder:text-text-faint focus:border-border-focus focus:ring-2 focus:ring-brand/15 outline-none transition-colors"
+                className="w-full bg-bg-hover border border-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-text-primary placeholder:text-text-faint focus:border-border-focus focus:ring-2 focus:ring-brand/15 outline-none transition-colors"
               />
               {busca && (
                 <button
@@ -206,7 +206,7 @@ export default function EstoquePage() {
                         'shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all',
                         ativo
                           ? 'bg-brand text-white border-brand'
-                          : 'bg-white border-border text-text-secondary hover:border-brand hover:text-brand'
+                          : 'bg-bg-hover border-border text-text-secondary hover:border-brand hover:text-brand'
                       )}
                     >
                       <span>{cat.icon}</span>
@@ -247,7 +247,7 @@ export default function EstoquePage() {
                   })}
                 </div>
                 {donutSegmentos.length > 0 && (
-                  <div className="bg-white rounded-xl shadow-card p-4">
+                  <div className="bg-bg-card rounded-xl shadow-card p-4">
                     <p className="text-sm font-bold text-text-secondary mb-3">📊 Distribuição por categoria</p>
                     <DonutChart segmentos={donutSegmentos} />
                   </div>
@@ -286,7 +286,7 @@ export default function EstoquePage() {
                             'flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold border transition-all',
                             ativo
                               ? 'bg-brand text-white border-brand'
-                              : 'bg-white border-border text-text-secondary hover:border-brand hover:text-brand'
+                              : 'bg-bg-hover border-border text-text-secondary hover:border-brand hover:text-brand'
                           )}
                         >
                           <span>{sub.nome}</span>
@@ -298,7 +298,7 @@ export default function EstoquePage() {
                   </div>
                 )}
                 {produtosFiltrados.length === 0 ? (
-                  <div className="bg-white rounded-xl border border-border p-8 flex flex-col items-center gap-2">
+                  <div className="bg-bg-card rounded-xl border border-border p-8 flex flex-col items-center gap-2">
                     <span className="text-3xl">🔍</span>
                     <p className="text-text-muted text-sm">
                       {busca ? `Nenhum produto com "${busca}"` : 'Nenhum produto nesta categoria'}

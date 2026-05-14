@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   title: 'Panela da Roça — Sistema Inteligente',
   description: 'Gestão inteligente de compras, estoque e custos',
   manifest: '/manifest.json',
+  icons: {
+    icon: [
+      { url: '/logo.png', type: 'image/png' },
+    ],
+    apple: '/logo.png',
+  },
 }
 
 export const viewport: Viewport = {

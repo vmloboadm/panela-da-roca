@@ -146,7 +146,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
             <select
               value={form.produto_id}
               onChange={e => setFormField('produto_id', e.target.value)}
-              className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+              className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
             >
               <option value="">— Selecione o produto —</option>
               {produtos.filter(p => p.ativo).map(p => (
@@ -163,7 +163,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
                 value={form.quantidade}
                 onChange={e => setFormField('quantidade', e.target.value)}
                 placeholder="0"
-                className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+                className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
               />
             </div>
             <div className="flex flex-col gap-1 w-20">
@@ -173,7 +173,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
                 value={form.unidade}
                 onChange={e => setFormField('unidade', e.target.value)}
                 placeholder="kg"
-                className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+                className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
               />
             </div>
           </div>
@@ -185,7 +185,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
               value={form.preco_unitario}
               onChange={e => setFormField('preco_unitario', e.target.value)}
               placeholder="0,00"
-              className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+              className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
             />
           </div>
 
@@ -194,7 +194,7 @@ export function EntradaEstoque({ produtos, fornecedores, onSalvo }: EntradaEstoq
             <select
               value={form.fornecedor_id}
               onChange={e => setFormField('fornecedor_id', e.target.value)}
-              className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+              className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
             >
               <option value="">— Sem fornecedor —</option>
               {fornecedores.filter(f => f.ativo).map(f => (

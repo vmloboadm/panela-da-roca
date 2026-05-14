@@ -57,7 +57,7 @@ export function BaixaEstoque({ produtos, onSalvo }: BaixaEstoqueProps) {
         <select
           value={produto_id}
           onChange={e => { setProdutoId(e.target.value); setSucesso(false) }}
-          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         >
           <option value="">— Selecione o produto —</option>
           {produtos.filter(p => p.ativo).map(p => (
@@ -79,7 +79,7 @@ export function BaixaEstoque({ produtos, onSalvo }: BaixaEstoqueProps) {
             value={quantidade}
             onChange={e => setQuantidade(e.target.value)}
             placeholder="0"
-            className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+            className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
           />
         </div>
       </div>
@@ -97,7 +97,7 @@ export function BaixaEstoque({ produtos, onSalvo }: BaixaEstoqueProps) {
           value={observacao}
           onChange={e => setObservacao(e.target.value)}
           placeholder="Ex: usado no buffet de hoje"
-          className="bg-white border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
+          className="bg-bg-hover border border-border rounded-lg px-3 py-2 text-text-primary text-sm"
         />
       </div>
 
